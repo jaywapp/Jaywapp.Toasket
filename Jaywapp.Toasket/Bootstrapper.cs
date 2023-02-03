@@ -16,10 +16,11 @@ namespace Jaywapp.Toasket
             base.ConfigureContainer();
 
             Register<MatchRepository>();
+            Register<PersonalRepository>();
 
             Register<HomeView, HomeViewModel>();
-            Register<MatchView, MatchViewModel>();
-            Register<BasketView, BasketViewModel>();
+            Register<MatchPickView, MatchPickViewModel>();
+            Register<BoxesView, BoxesViewModel>();
             Register<AnalysisView, AnalysisViewModel>();
         }
 

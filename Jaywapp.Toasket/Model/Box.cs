@@ -2,13 +2,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Jaywapp.Toasket.Model
 {
     public class Box
     {
+        public DateTime Created { get; }
         public List<Pick> Picks { get; } = new List<Pick>();
         public int Money { get; }
         public double Ratio { get; }
@@ -16,8 +15,8 @@ namespace Jaywapp.Toasket.Model
 
         public Box(IEnumerable<Pick> picks, int money)
         {
+            Created = DateTime.Now;
             Picks = picks.ToList();
-
             Ratio =  Calculater.Multiply(Picks, p => p.Ratio);
             Money = money;
             ReturnMoney = (int)(Ratio * Money);

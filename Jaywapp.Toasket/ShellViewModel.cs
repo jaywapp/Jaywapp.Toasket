@@ -36,8 +36,8 @@ namespace Jaywapp.Toasket
             _container = container ?? throw new ArgumentNullException(nameof(container));
 
             ActiveHomeViewCommand = new DelegateCommand(() => ActivateView<HomeView>());
-            ActiveMatchViewCommand = new DelegateCommand(() => ActivateView<MatchView>());
-            ActiveBasketViewCommand = new DelegateCommand(() => ActivateView<BasketView>());
+            ActiveMatchViewCommand = new DelegateCommand(() => ActivateView<MatchPickView>());
+            ActiveBasketViewCommand = new DelegateCommand(() => ActivateView<BoxesView>());
             ActiveAnalysisViewCommand = new DelegateCommand(() => ActivateView<AnalysisView>());
 
             ActivateView<HomeView>();

@@ -57,22 +57,22 @@
     </ApplicationDefinition>
     <Compile Include="Enums.cs" />
     <Compile Include="Helper\Calculater.cs" />
-    <Compile Include="Interface\IMatch.cs" />
     <Compile Include="Items\MatchItem.cs" />
     <Compile Include="Model\Box.cs" />
     <Compile Include="Model\Match.cs" />
     <Compile Include="Model\Pick.cs" />
     <Compile Include="Repository\MatchRepository.cs" />
+    <Compile Include="Repository\PersonalRepository.cs" />
     <Compile Include="ShellViewModel.cs" />
     <Compile Include="View\AnalysisView.xaml.cs">
       <DependentUpon>AnalysisView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\AnalysisViewModel.cs" />
     <Compile Include="View\Base\ContainableReactiveObject.cs" />
-    <Compile Include="View\BasketView.xaml.cs">
-      <DependentUpon>BasketView.xaml</DependentUpon>
+    <Compile Include="View\BoxesView.xaml.cs">
+      <DependentUpon>BoxesView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\BasketViewModel.cs" />
+    <Compile Include="View\BoxesViewModel.cs" />
     <Compile Include="View\HomeView.xaml.cs">
       <DependentUpon>HomeView.xaml</DependentUpon>
     </Compile>
@@ -81,10 +81,10 @@
       <DependentUpon>MatchItemListView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\MatchItemListViewModel.cs" />
-    <Compile Include="View\MatchView.xaml.cs">
-      <DependentUpon>MatchView.xaml</DependentUpon>
+    <Compile Include="View\MatchPickView.xaml.cs">
+      <DependentUpon>MatchPickView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\MatchViewModel.cs" />
+    <Compile Include="View\MatchPickViewModel.cs" />
     <Page Include="Shell.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -102,7 +102,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\BasketView.xaml">
+    <Page Include="View\BoxesView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -114,7 +114,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\MatchView.xaml">
+    <Page Include="View\MatchPickView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -176,6 +176,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Converter\" />
+    <Folder Include="Interface\" />
     <Folder Include="Service\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -9,14 +9,15 @@
         <ListView ItemsSource="{Binding Items}">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Home" DisplayMemberBinding="{Binding Home}"/>
-                    <GridViewColumn Header="Away" DisplayMemberBinding="{Binding Away}"/>
-                    <GridViewColumn Header="Time" DisplayMemberBinding="{Binding Time}"/>
+                    <GridViewColumn Header="No" DisplayMemberBinding="{Binding Match.No}"/>
+                    <GridViewColumn Header="Home" DisplayMemberBinding="{Binding Match.Home}"/>
+                    <GridViewColumn Header="Away" DisplayMemberBinding="{Binding Match.Away}"/>
+                    <GridViewColumn Header="Time" DisplayMemberBinding="{Binding Match.Time}"/>
                     <GridViewColumn Header="Win" Width="60">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <ToggleButton Width="40"  Style="{DynamicResource {x:Static adonisUi:Styles.DefaultToAccentToggleButton }}" 
-                                              Content="{Binding Win}" IsChecked="{Binding IsWinSelected}"/>
+                                              Content="{Binding Match.Win}" IsChecked="{Binding IsWinSelected}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -24,7 +25,7 @@
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <ToggleButton Width="40" Style="{DynamicResource {x:Static adonisUi:Styles.DefaultToAccentToggleButton }}"  
-                                              Content="{Binding Draw}" IsChecked="{Binding IsDrawSelected}"/>
+                                              Content="{Binding Match.Draw}" IsChecked="{Binding IsDrawSelected}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -32,7 +33,7 @@
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <ToggleButton Width="40"  Style="{DynamicResource {x:Static adonisUi:Styles.DefaultToAccentToggleButton }}" 
-                                              Content="{Binding Lose}" IsChecked="{Binding IsLoseSelected}"/>
+                                              Content="{Binding Match.Lose}" IsChecked="{Binding IsLoseSelected}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>

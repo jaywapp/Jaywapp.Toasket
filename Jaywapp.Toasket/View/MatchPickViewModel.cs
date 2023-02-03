@@ -16,7 +16,7 @@ using System.Reactive.Linq;
 
 namespace Jaywapp.Toasket.View
 {
-    public class MatchViewModel : ContainableReactiveObject
+    public class MatchPickViewModel : ContainableReactiveObject
     {
         private ObservableAsPropertyHelper<List<MatchItem>> _selectedItems;
         private ObservableAsPropertyHelper<int> _selectionCount;
@@ -43,7 +43,7 @@ namespace Jaywapp.Toasket.View
         public DelegateCommand ConfirmCommand { get; }
 
 
-        public MatchViewModel(IUnityContainer container, MatchRepository dataRepository)
+        public MatchPickViewModel(IUnityContainer container, MatchRepository dataRepository)
             : base(container, dataRepository)
         {
             ConfirmCommand = new DelegateCommand(Confirm);
@@ -83,11 +83,9 @@ namespace Jaywapp.Toasket.View
 
         private void Confirm()
         {
-            var picks = SelectedItems
-                .Select(i => new Pick(i, i.SelectedResult, i.GetRatio()))
-                .ToList();
-
-            var box = new Box(picks, Money);
+            var box = new Box(SelectedItems.Select(i => i.ToPick()), Money);
+            
+            // Next Job
         }
     }
 }

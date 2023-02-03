@@ -5,19 +5,15 @@ using System;
 
 namespace Jaywapp.Toasket.Items
 {
-    public class MatchItem : ReactiveObject, IMatch
+    public class MatchItem : ReactiveObject
     {
         #region Internal Field
-        private Match _match;
         private eMatchResult _selectedResult;
         #endregion
 
         #region Properties
-        public int No => _match.No;
-        public string Home => _match.Home;
-        public string Away => _match.Away;
-        public DateTime Time => _match.Time;
-
+        public Match Match { get; }
+        
         public eMatchResult SelectedResult
         {
             get => _selectedResult;
@@ -41,15 +37,11 @@ namespace Jaywapp.Toasket.Items
             get => SelectedResult == eMatchResult.Lose;
             set => SelectedResult = value ? eMatchResult.Lose : eMatchResult.None;
         }
-
-        public double Win => _match.Win;
-        public double Draw => _match.Draw;
-        public double Lose => _match.Lose;
         #endregion
 
         public MatchItem(Match match)
         {
-            _match = match;
+            Match = match;
 
             this.WhenAnyValue(x => x.SelectedResult)
                 .Subscribe(r=>
@@ -65,13 +57,15 @@ namespace Jaywapp.Toasket.Items
         {
             switch (SelectedResult)
             {
-                case eMatchResult.Win:  return Win;
-                case eMatchResult.Draw: return Draw;
-                case eMatchResult.Lose: return Lose;
+                case eMatchResult.Win:  return Match.Win;
+                case eMatchResult.Draw: return Match.Draw;
+                case eMatchResult.Lose: return Match.Lose;
                 case eMatchResult.None: 
                 default:
                     return 1;
             }
         }
+
+        public Pick ToPick() => new Pick(Match, SelectedResult, GetRatio());
     }
 }

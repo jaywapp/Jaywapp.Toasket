@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace Jaywapp.Toasket.View
 {
     /// <summary>
-    /// BasketView.xaml에 대한 상호 작용 논리
+    /// MatchView.xaml에 대한 상호 작용 논리
     /// </summary>
-    public partial class BasketView : UserControl
+    public partial class MatchPickView : UserControl
     {
-        public BasketView()
+        public MatchPickView()
         {
             InitializeComponent();
         }
