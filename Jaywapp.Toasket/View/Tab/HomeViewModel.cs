@@ -2,7 +2,7 @@
 using Jaywapp.Toasket.View.Base;
 using Microsoft.Practices.Unity;
 
-namespace Jaywapp.Toasket.View
+namespace Jaywapp.Toasket.View.Tab
 {
     public class HomeViewModel : ContainableReactiveObject
     {

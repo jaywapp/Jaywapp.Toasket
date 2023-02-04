@@ -12,6 +12,11 @@ namespace Jaywapp.Toasket.View
     {
         #region Internal Field
         private BoxItem _item;
+
+        private int _count;
+        private double _ratio;
+        private int _money;
+        private int _returnMoney;
         #endregion
 
         #region Properties
@@ -20,6 +25,31 @@ namespace Jaywapp.Toasket.View
             get => _item;
             set => this.RaiseAndSetIfChanged(ref _item, value);
         }
+
+        public int Count
+        {
+            get => _count;
+            set => this.RaiseAndSetIfChanged(ref _count, value);
+        }
+
+        public double Ratio
+        {
+            get => _ratio;
+            set => this.RaiseAndSetIfChanged(ref _ratio, value);
+        }
+
+        public int Money
+        {
+            get => _money;
+            set => this.RaiseAndSetIfChanged(ref _money, value);
+        }
+
+        public int ReturnMoney
+        {
+            get => _returnMoney;
+            set => this.RaiseAndSetIfChanged(ref _returnMoney, value);
+        }
+
         #endregion
 
         #region ViewModels
@@ -28,27 +58,25 @@ namespace Jaywapp.Toasket.View
         #endregion
 
         #region Constructor
-        public BoxItemConfigViewModel()
+        public BoxItemConfigViewModel(BoxItem item)
         {
+            Item = item;
             StatusViewModel = new StatusViewModel();
             MatchItemListViewModel = new MatchItemListViewModel();
 
             var itemChanges = this.WhenAnyValue(x => x.Item).Where(i => i != null);
 
             itemChanges
-                .Select(item => item.Children)
+                .Select(i => i.Children)
                 .BindTo(this, x => x.MatchItemListViewModel.Items);
 
-            itemChanges.Subscribe(item =>
-            {
-                item.WhenAnyValue(i => i.Money)
-                    .BindTo(this, x => x.StatusViewModel.Money);
-                item.WhenAnyValue(i => i.Children)
-                    .Select(c => c.Count)
-                    .BindTo(this, x => x.StatusViewModel.Count);
-                item.WhenAnyValue(i => i.Ratio)
-                    .BindTo(this, x => x.StatusViewModel.Ratio);
-            });
+            item.WhenAnyValue(i => i.Money)
+                .BindTo(this, x => x.StatusViewModel.Money);
+            item.WhenAnyValue(i => i.Children)
+                .Select(c => c.Count)
+                .BindTo(this, x => x.StatusViewModel.Count);
+            item.WhenAnyValue(i => i.Ratio)
+                .BindTo(this, x => x.StatusViewModel.Ratio);
 
             StatusViewModel.WhenAnyValue(x => x.Money)
                 .BindTo(this, x => x.Item.Money);

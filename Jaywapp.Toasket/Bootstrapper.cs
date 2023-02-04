@@ -1,5 +1,6 @@
 ﻿using Jaywapp.Toasket.Repository;
 using Jaywapp.Toasket.View;
+using Jaywapp.Toasket.View.Tab;
 using Microsoft.Practices.Unity;
 using Prism.Mvvm;
 using Prism.Unity;

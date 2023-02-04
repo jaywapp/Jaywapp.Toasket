@@ -5,15 +5,21 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" d:DesignHeight="450" d:DesignWidth="800">
     <ScrollViewer >
-        <ListView ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem}">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Created" DisplayMemberBinding="{Binding Box.Created}"/>
-                    <GridViewColumn Header="Ratio" Width="100" DisplayMemberBinding="{Binding Ratio}"/>
-                    <GridViewColumn Header="Money" Width="100" DisplayMemberBinding="{Binding Money}"/>
-                    <GridViewColumn Header="ReturnMoney" Width="100" DisplayMemberBinding="{Binding ReturnMoney}"/>
-                </GridView>
-            </ListView.View>
-        </ListView>
+        <ListBox ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem}" HorizontalAlignment="Center">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel HorizontalAlignment="Center" >
+                        <TextBlock Grid.Row="0" TextAlignment="Center" HorizontalAlignment="Center" Text="{Binding Box.Created}"/>
+                        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                            <TextBlock TextAlignment="Center" Text="{Binding Ratio}"/>
+                            <TextBlock TextAlignment="Center" Text=" X "/>
+                            <TextBlock TextAlignment="Center" Text="{Binding Money}"/>
+                            <TextBlock TextAlignment="Center" Text=" = "/>
+                            <TextBlock TextAlignment="Center"  FontWeight="Bold" Text="{Binding ReturnMoney}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
     </ScrollViewer>
 </UserControl>

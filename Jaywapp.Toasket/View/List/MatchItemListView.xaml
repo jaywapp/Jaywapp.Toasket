@@ -9,11 +9,11 @@
         <ListView ItemsSource="{Binding Items}">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="No" DisplayMemberBinding="{Binding Match.No}"/>
-                    <GridViewColumn Header="Home" DisplayMemberBinding="{Binding Match.Home}"/>
-                    <GridViewColumn Header="Away" DisplayMemberBinding="{Binding Match.Away}"/>
-                    <GridViewColumn Header="Time" DisplayMemberBinding="{Binding Match.Time}"/>
-                    <GridViewColumn Header="Win" Width="60">
+                    <GridViewColumn Header="번호" Width="35" DisplayMemberBinding="{Binding Match.No}"/>
+                    <GridViewColumn Header="홈" DisplayMemberBinding="{Binding Match.Home}"/>
+                    <GridViewColumn Header="원정" DisplayMemberBinding="{Binding Match.Away}"/>
+                    <GridViewColumn Header="시간" DisplayMemberBinding="{Binding Match.Time}"/>
+                    <GridViewColumn Header="승" Width="60">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <ToggleButton Width="40"  Style="{DynamicResource {x:Static adonisUi:Styles.DefaultToAccentToggleButton }}" 
@@ -21,7 +21,7 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Header="Draw" Width="60">
+                    <GridViewColumn Header="무" Width="60">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <ToggleButton Width="40" Style="{DynamicResource {x:Static adonisUi:Styles.DefaultToAccentToggleButton }}"  
@@ -29,7 +29,7 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Header="Lose"  Width="60">
+                    <GridViewColumn Header="패"  Width="60">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <ToggleButton Width="40"  Style="{DynamicResource {x:Static adonisUi:Styles.DefaultToAccentToggleButton }}" 

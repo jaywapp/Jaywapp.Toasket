@@ -1,9 +1,8 @@
 ﻿using Jaywapp.Toasket.Repository;
 using Jaywapp.Toasket.View.Base;
 using Microsoft.Practices.Unity;
-using ReactiveUI;
 
-namespace Jaywapp.Toasket.View
+namespace Jaywapp.Toasket.View.Tab
 {
     public class AnalysisViewModel : ContainableReactiveObject
     {

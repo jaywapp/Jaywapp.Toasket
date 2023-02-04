@@ -14,7 +14,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Linq;
 
-namespace Jaywapp.Toasket.View
+namespace Jaywapp.Toasket.View.Tab
 {
     public class MatchPickViewModel : ContainableReactiveObject
     {
@@ -69,6 +69,10 @@ namespace Jaywapp.Toasket.View
             this.WhenAnyValue(x => x.SelectedItems, x => x.StatusViewModel.Money)
                 .Select(p => p.Item1.Any() && p.Item2 != 0)
                 .ToProperty(this, x => x.IsConfirmable, out _isConfirmable);
+
+            StatusViewModel.WhenAnyValue(x => x.Ratio, x => x.Money)
+                .Select(p => p.Item1 * p.Item2)
+                .BindTo(this, x => x.StatusViewModel.ReturnMoney);
         }
         #endregion
 
