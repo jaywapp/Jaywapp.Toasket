@@ -1,6 +1,4 @@
-﻿using Jaywapp.Toasket.View;
-using Jaywapp.Toasket.View.Base;
-using Jaywapp.Toasket.View.Tab;
+﻿using Jaywapp.Toasket.View.Tab;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 using ReactiveUI;
@@ -14,6 +12,9 @@ namespace Jaywapp.Toasket
         #region Internal Field
         private readonly IUnityContainer _container;
         private Control _activeView;
+
+        private bool _isBusy;
+        private string _busyContent;
         #endregion
 
         #region Properties
@@ -21,6 +22,18 @@ namespace Jaywapp.Toasket
         {
             get => _activeView;
             set => this.RaiseAndSetIfChanged(ref _activeView, value);
+        }
+
+        public bool IsBusy
+        {
+            get => _isBusy;
+            set => this.RaiseAndSetIfChanged(ref _isBusy, value);
+        }
+
+        public string BusyContent
+        {
+            get => _busyContent;
+            set => this.RaiseAndSetIfChanged(ref _busyContent, value);
         }
         #endregion
 
@@ -50,6 +63,18 @@ namespace Jaywapp.Toasket
             where TView : Control
         {
             ActiveView = _container.Resolve<TView>();
+        }
+
+        public void Start(string content)
+        {
+            BusyContent = content;
+            IsBusy = true;
+        }
+
+        public void End()
+        {
+            BusyContent = string.Empty;
+            IsBusy = false;
         }
         #endregion
     }

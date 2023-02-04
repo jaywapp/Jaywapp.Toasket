@@ -13,6 +13,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Jaywapp.Toasket.View.Tab
 {
@@ -21,6 +23,8 @@ namespace Jaywapp.Toasket.View.Tab
         #region Internal Field
         private ObservableAsPropertyHelper<List<MatchItem>> _selectedItems;
         private ObservableAsPropertyHelper<bool> _isConfirmable;
+
+        private readonly ShellViewModel _shellViewModel;
         #endregion
 
         #region Properties
@@ -38,18 +42,16 @@ namespace Jaywapp.Toasket.View.Tab
         #endregion
 
         #region Constructor
-        public MatchPickViewModel(IUnityContainer container, MatchRepository dataRepository, PersonalRepository personalRepository)
+        public MatchPickViewModel(IUnityContainer container, ShellViewModel shellViewModel, MatchRepository dataRepository, PersonalRepository personalRepository)
             : base(container, dataRepository, personalRepository)
         {
+            _shellViewModel = shellViewModel ?? throw new ArgumentNullException(nameof(shellViewModel));
             ConfirmCommand = new DelegateCommand(Confirm);
 
             MatchItemListViewModel = new MatchItemListViewModel();
             StatusViewModel = new StatusViewModel();
 
-            MatchItemListViewModel.Items = _dataRepository.Matches
-                .Select(d => new MatchItem(d))
-                .ToObservableCollection();
-
+            MatchItemListViewModel.Items = CreateItems().ToObservableCollection();
             MatchItemListViewModel.Items
                 .ToObservableChangeSet()
                 .AutoRefresh(i => i.Pick)
@@ -77,6 +79,21 @@ namespace Jaywapp.Toasket.View.Tab
         #endregion
 
         #region Functions
+        private List<MatchItem> CreateItems()
+        {
+            _shellViewModel.Start("매치 목록을 로드 중입니다.");
+
+            var result = _dataRepository.Matches
+                .Select(d => new MatchItem(d))
+                .ToList();
+
+            Thread.Sleep(1000);
+
+            _shellViewModel.End();
+
+            return result;
+        }
+
         private void Confirm()
         {
             var matchs = SelectedItems.Select(i => i.Match.Copy());
