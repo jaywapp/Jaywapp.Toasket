@@ -57,10 +57,11 @@
     </ApplicationDefinition>
     <Compile Include="Enums.cs" />
     <Compile Include="Helper\Calculater.cs" />
+    <Compile Include="Helper\EnumerableHelper.cs" />
+    <Compile Include="Items\BoxItem.cs" />
     <Compile Include="Items\MatchItem.cs" />
     <Compile Include="Model\Box.cs" />
     <Compile Include="Model\Match.cs" />
-    <Compile Include="Model\Pick.cs" />
     <Compile Include="Repository\MatchRepository.cs" />
     <Compile Include="Repository\PersonalRepository.cs" />
     <Compile Include="ShellViewModel.cs" />
@@ -69,22 +70,38 @@
     </Compile>
     <Compile Include="View\AnalysisViewModel.cs" />
     <Compile Include="View\Base\ContainableReactiveObject.cs" />
+    <Compile Include="View\BoxesConfigView.xaml.cs">
+      <DependentUpon>BoxesConfigView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\BoxesConfigViewModel.cs" />
     <Compile Include="View\BoxesView.xaml.cs">
       <DependentUpon>BoxesView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\BoxesViewModel.cs" />
+    <Compile Include="View\List\BoxItemListView.xaml.cs">
+      <DependentUpon>BoxItemListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\List\BoxItemListViewModel.cs" />
     <Compile Include="View\HomeView.xaml.cs">
       <DependentUpon>HomeView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\HomeViewModel.cs" />
-    <Compile Include="View\MatchItemListView.xaml.cs">
+    <Compile Include="View\List\MatchItemListView.xaml.cs">
       <DependentUpon>MatchItemListView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\MatchItemListViewModel.cs" />
+    <Compile Include="View\List\MatchItemListViewModel.cs" />
     <Compile Include="View\MatchPickView.xaml.cs">
       <DependentUpon>MatchPickView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\MatchPickViewModel.cs" />
+    <Compile Include="View\BoxItemConfigView.xaml.cs">
+      <DependentUpon>BoxItemConfigView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\BoxItemConfigViewModel.cs" />
+    <Compile Include="View\StatusView.xaml.cs">
+      <DependentUpon>StatusView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\StatusViewModel.cs" />
     <Page Include="Shell.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -102,7 +119,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\BoxesConfigView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\BoxesView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\List\BoxItemListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -110,11 +135,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\MatchItemListView.xaml">
+    <Page Include="View\List\MatchItemListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\MatchPickView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\BoxItemConfigView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\StatusView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

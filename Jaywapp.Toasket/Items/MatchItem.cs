@@ -1,5 +1,4 @@
-﻿using Jaywapp.Toasket.Interface;
-using Jaywapp.Toasket.Model;
+﻿using Jaywapp.Toasket.Model;
 using ReactiveUI;
 using System;
 
@@ -8,64 +7,56 @@ namespace Jaywapp.Toasket.Items
     public class MatchItem : ReactiveObject
     {
         #region Internal Field
-        private eMatchResult _selectedResult;
+        private ePick _pick;
         #endregion
 
         #region Properties
         public Match Match { get; }
         
-        public eMatchResult SelectedResult
+        public ePick Pick
         {
-            get => _selectedResult;
-            set => this.RaiseAndSetIfChanged(ref _selectedResult, value);
+            get => _pick;
+            set => this.RaiseAndSetIfChanged(ref _pick, value);
         }
 
         public bool IsWinSelected
         {
-            get => SelectedResult == eMatchResult.Win;
-            set => SelectedResult = value ? eMatchResult.Win : eMatchResult.None;
+            get => Pick == ePick.Win;
+            set => Pick = value ? ePick.Win : ePick.None;
         }
 
         public bool IsDrawSelected
         {
-            get => SelectedResult == eMatchResult.Draw;
-            set => SelectedResult = value ? eMatchResult.Draw : eMatchResult.None;
+            get => Pick == ePick.Draw;
+            set => Pick = value ? ePick.Draw : ePick.None;
         }
 
         public bool IsLoseSelected
         {
-            get => SelectedResult == eMatchResult.Lose;
-            set => SelectedResult = value ? eMatchResult.Lose : eMatchResult.None;
+            get => Pick == ePick.Lose;
+            set => Pick = value ? ePick.Lose : ePick.None;
         }
         #endregion
 
         public MatchItem(Match match)
         {
             Match = match;
+            Pick = match.Pick;
 
-            this.WhenAnyValue(x => x.SelectedResult)
-                .Subscribe(r=>
-                {
-                    this.RaisePropertyChanged(nameof(IsWinSelected));
-                    this.RaisePropertyChanged(nameof(IsLoseSelected));
-                    this.RaisePropertyChanged(nameof(IsDrawSelected));
-                });
+            this.WhenAnyValue(x => x.Pick).Subscribe(ChangePick);
         }
 
-
-        public double GetRatio()
+        private void ChangePick(ePick pick)
         {
-            switch (SelectedResult)
-            {
-                case eMatchResult.Win:  return Match.Win;
-                case eMatchResult.Draw: return Match.Draw;
-                case eMatchResult.Lose: return Match.Lose;
-                case eMatchResult.None: 
-                default:
-                    return 1;
-            }
+            Match.Pick = pick;
+            RaisePropertiesChanged();
         }
 
-        public Pick ToPick() => new Pick(Match, SelectedResult, GetRatio());
+        private void RaisePropertiesChanged()
+        {
+            this.RaisePropertyChanged(nameof(IsWinSelected));
+            this.RaisePropertyChanged(nameof(IsLoseSelected));
+            this.RaisePropertyChanged(nameof(IsDrawSelected));
+        }
     }
 }

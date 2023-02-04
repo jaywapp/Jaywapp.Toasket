@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace Jaywapp.Toasket.View
 {
     /// <summary>
-    /// MatchItemListView.xaml에 대한 상호 작용 논리
+    /// StatusView.xaml에 대한 상호 작용 논리
     /// </summary>
-    public partial class MatchItemListView : UserControl
+    public partial class StatusView : UserControl
     {
-        public MatchItemListView()
+        public StatusView()
         {
             InitializeComponent();
         }

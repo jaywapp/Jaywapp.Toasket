@@ -1,13 +1,8 @@
 ﻿using Jaywapp.Toasket.Items;
 using ReactiveUI;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Jaywapp.Toasket.View
+namespace Jaywapp.Toasket.View.List
 {
     public class MatchItemListViewModel : ReactiveObject
     {

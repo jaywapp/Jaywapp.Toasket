@@ -8,18 +8,18 @@ namespace Jaywapp.Toasket.Model
     public class Box
     {
         public DateTime Created { get; }
-        public List<Pick> Picks { get; } = new List<Pick>();
-        public int Money { get; }
-        public double Ratio { get; }
-        public int ReturnMoney { get; }
+        public List<Match> Picks { get; } = new List<Match>();
+        public int Money { get; set; }
 
-        public Box(IEnumerable<Pick> picks, int money)
+        public Box(IEnumerable<Match> picks, int money)
         {
             Created = DateTime.Now;
             Picks = picks.ToList();
-            Ratio =  Calculater.Multiply(Picks, p => p.Ratio);
             Money = money;
-            ReturnMoney = (int)(Ratio * Money);
         }
+
+        public double GetRatio() => Calculater.Multiply(Picks, p => p.GetRatio());
+
+        public int GetReturnMoney() => (int)(GetRatio() * Money);
     }
 }

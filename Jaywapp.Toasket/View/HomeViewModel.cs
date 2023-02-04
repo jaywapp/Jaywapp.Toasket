@@ -6,7 +6,8 @@ namespace Jaywapp.Toasket.View
 {
     public class HomeViewModel : ContainableReactiveObject
     {
-        public HomeViewModel(IUnityContainer container, MatchRepository dataRepository) : base(container, dataRepository)
+        public HomeViewModel(IUnityContainer container, MatchRepository dataRepository, PersonalRepository personalRepository)
+            : base(container, dataRepository, personalRepository)
         {
         }
     }

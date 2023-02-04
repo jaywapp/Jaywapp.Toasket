@@ -5,7 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:prism="http://prismlibrary.com/" 
              prism:ViewModelLocator.AutoWireViewModel="True"
-             xmlns:adonisUi="clr-namespace:AdonisUI;assembly=AdonisUI" xmlns:view="clr-namespace:Jaywapp.Toasket.View"
+             xmlns:view="clr-namespace:Jaywapp.Toasket.View" 
+             xmlns:list="clr-namespace:Jaywapp.Toasket.View.List"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
@@ -13,19 +14,10 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
-        <view:MatchItemListView Grid.Row="0" DataContext="{Binding MatchItemListViewModel}"/>
+        <list:MatchItemListView Grid.Row="0" DataContext="{Binding MatchItemListViewModel}"/>
 
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
-            <TextBlock VerticalAlignment="Center" Text="개수 : "/>
-            <TextBlock VerticalAlignment="Center" Margin="0, 0, 10, 0" Text="{Binding SelectionCount}" />
-            <TextBlock VerticalAlignment="Center" Text="배당 : "/>
-            <TextBlock VerticalAlignment="Center" Margin="0, 0, 10, 0" Text="{Binding SelectionRatio}"/>
-            <TextBlock VerticalAlignment="Center" Text="배팅금액 : "/>
-            <TextBox VerticalAlignment="Center" Width="100" Margin="0, 0, 10, 0"  Text="{Binding Money}"/>
-
-            <TextBlock VerticalAlignment="Center" Text="당첨예상금 : "/>
-            <TextBlock VerticalAlignment="Center" Margin="0, 0, 10, 0" Text="{Binding ReturnMoney}"/>
-
+            <view:StatusView DataContext="{Binding StatusViewModel}"/>
             <Button Content="담기" Width="100" IsEnabled="{Binding IsConfirmable}" Command="{Binding ConfirmCommand}"/>
         </StackPanel>
     </Grid>

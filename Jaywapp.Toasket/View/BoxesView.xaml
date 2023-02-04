@@ -5,9 +5,15 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:prism="http://prismlibrary.com/" 
              prism:ViewModelLocator.AutoWireViewModel="True"
-             mc:Ignorable="d" 
+             mc:Ignorable="d"
+             xmlns:view="clr-namespace:Jaywapp.Toasket.View"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <TextBlock Text="This is Basket View."/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <view:BoxesConfigView Grid.Column="0" DataContext="{Binding BoxesConfigViewModel}"/>
+        <view:BoxItemConfigView Grid.Column="1" DataContext="{Binding BoxItemConfigViewModel}"/>
     </Grid>
 </UserControl>

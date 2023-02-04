@@ -7,7 +7,8 @@ namespace Jaywapp.Toasket.View
 {
     public class AnalysisViewModel : ContainableReactiveObject
     {
-        public AnalysisViewModel(IUnityContainer container, MatchRepository dataRepository) : base(container, dataRepository)
+        public AnalysisViewModel(IUnityContainer container, MatchRepository dataRepository, PersonalRepository personalRepository) 
+            : base(container, dataRepository, personalRepository)
         {
         }
     }

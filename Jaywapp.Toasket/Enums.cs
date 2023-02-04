@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Jaywapp.Toasket
 {
-    public enum eMatchResult
+    public enum ePick
     {
         None,
         Win,
