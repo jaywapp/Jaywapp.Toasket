@@ -6,8 +6,8 @@ namespace Jaywapp.Toasket.View.Tab
 {
     public class HomeViewModel : ContainableReactiveObject
     {
-        public HomeViewModel(IUnityContainer container, MatchRepository dataRepository, PersonalRepository personalRepository)
-            : base(container, dataRepository, personalRepository)
+        public HomeViewModel(IUnityContainer container, MatchRepository matchRepo, PersonalRepository personalRepo)
+            : base(container, matchRepo, personalRepo)
         {
         }
     }

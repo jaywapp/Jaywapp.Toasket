@@ -22,10 +22,10 @@ namespace Jaywapp.Toasket.View.Tab
         #endregion
 
         #region Constructor
-        public BoxesViewModel(IUnityContainer container, MatchRepository dataRepository, PersonalRepository personalRepository)
-            : base(container, dataRepository, personalRepository)
+        public BoxesViewModel(IUnityContainer container, MatchRepository matchRepo, PersonalRepository personalRepo)
+            : base(container, matchRepo, personalRepo)
         {
-            BoxesConfigViewModel = new BoxesConfigViewModel(personalRepository);
+            BoxesConfigViewModel = new BoxesConfigViewModel(personalRepo);
             BoxesConfigViewModel.WhenAnyValue(x => x.SelectedItem)
                 .Where(item => item != null)
                 .Select(GetViewModel)

@@ -13,8 +13,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Jaywapp.Toasket.View.Tab
 {
@@ -23,8 +21,6 @@ namespace Jaywapp.Toasket.View.Tab
         #region Internal Field
         private ObservableAsPropertyHelper<List<MatchItem>> _selectedItems;
         private ObservableAsPropertyHelper<bool> _isConfirmable;
-
-        private readonly ShellViewModel _shellViewModel;
         #endregion
 
         #region Properties
@@ -42,10 +38,10 @@ namespace Jaywapp.Toasket.View.Tab
         #endregion
 
         #region Constructor
-        public MatchPickViewModel(IUnityContainer container, ShellViewModel shellViewModel, MatchRepository dataRepository, PersonalRepository personalRepository)
-            : base(container, dataRepository, personalRepository)
+        public MatchPickViewModel(
+            IUnityContainer container, MatchRepository matchRepo, PersonalRepository personalRepo)
+            : base(container, matchRepo, personalRepo)
         {
-            _shellViewModel = shellViewModel ?? throw new ArgumentNullException(nameof(shellViewModel));
             ConfirmCommand = new DelegateCommand(Confirm);
 
             MatchItemListViewModel = new MatchItemListViewModel();
@@ -81,9 +77,7 @@ namespace Jaywapp.Toasket.View.Tab
         #region Functions
         private List<MatchItem> CreateItems()
         {
-            _shellViewModel.Start("매치 목록을 로드 중입니다.");
-
-            var result = _dataRepository.Matches
+            var result = _matchRepo.Matches
                 .Select(d => new MatchItem(d))
                 .ToList();
 
@@ -95,10 +89,6 @@ namespace Jaywapp.Toasket.View.Tab
                     member.Brothers = group.Where(i => i != member).ToList();
             }
 
-            Thread.Sleep(1000);
-
-            _shellViewModel.End();
-
             return result;
         }
 
@@ -109,7 +99,7 @@ namespace Jaywapp.Toasket.View.Tab
 
             var box = new Box(matchs, money);
 
-            _personalRepository.Add(box);
+            _personalRepo.Add(box);
 
             foreach (var selectedItem in SelectedItems)
                 selectedItem.Pick = ePick.None;
