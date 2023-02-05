@@ -60,17 +60,15 @@ namespace Jaywapp.Toasket.Service
                 return null;
 
             var category = contentSet[2];
-            /*
-            var category = GetCategory(contest);
-            */
-
             (var home, var homeScore) = SplitHomeStr(contentSet[3]);
             (var away, var awayScore) = SplitAwayStr(contentSet[5]);
             var win = GetAllocationPoint(contentSet[6]);
             var draw = GetAllocationPoint(contentSet[7]);
             var lose = GetAllocationPoint(contentSet[8]);
 
-            return new Match(no, date, category, home, away, win, draw, lose);
+            var result = GetResult(contentSet.ElementAtOrDefault(9));
+
+            return new Match(no, date, category, home, away, win, draw, lose, "", result);
         }
 
         private static Match CreateHandicapMatch(List<string> contentSet, int year, int protoNo)
@@ -80,11 +78,6 @@ namespace Jaywapp.Toasket.Service
                 return null;
 
             var category = contentSet[2];
-            /*
-            var category = GetCategory(contest);
-
-            var handicap = GetNumber(contentSet[3]);
-            */
             var content = contentSet[3];
             (var home, var homeScore) = SplitHomeStr(contentSet[4]);
             (var away, var awayScore) = SplitAwayStr(contentSet[6]);
@@ -93,7 +86,9 @@ namespace Jaywapp.Toasket.Service
             var draw = GetAllocationPoint(contentSet[8]);
             var lose = GetAllocationPoint(contentSet[9]);
 
-            return new Match(no, date, category, home, away, win, draw, lose, content);
+            var result = GetResult(contentSet.ElementAtOrDefault(10));
+
+            return new Match(no, date, category, home, away, win, draw, lose, content, result);
         }
 
         private static Match CreateUnderOverMatch(List<string> contentSet, int year, int protoNo)
@@ -103,12 +98,6 @@ namespace Jaywapp.Toasket.Service
                 return null;
 
             var category = contentSet[2];
-            /*
-            var category = GetCategory(contest);
-
-            var underOverScore = GetNumber(contentSet[3]);
-            */
-
             var content = contentSet[3];
             var win = GetAllocationPoint(contentSet[7]);
             var lose = GetAllocationPoint(contentSet[9]);
@@ -116,8 +105,34 @@ namespace Jaywapp.Toasket.Service
             var home = contentSet[4];
             var away = contentSet[6];
 
-            return new Match(no, date, category, home, away, win, 1, lose, content);
+            var result = GetResult(contentSet.ElementAtOrDefault(10));
+
+            return new Match(no, date, category, home, away, win, 1, lose, content, result);
         }
+
+
+        private static eMatchResult GetResult(string content)
+        {
+            switch (content)
+            {
+                case "홈승":
+                case "핸디승":
+                case "언더":
+                    return eMatchResult.Win;
+
+                case "홈패":
+                case "핸디패":
+                case "오버":
+                    return eMatchResult.Lose;
+
+                case "무승부":
+                    return eMatchResult.Draw;
+
+                default:
+                    return eMatchResult.None;
+            }
+        }
+
 
         private static double GetAllocationPoint(string str)
         {

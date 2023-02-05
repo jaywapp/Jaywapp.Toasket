@@ -11,13 +11,13 @@ namespace Jaywapp.Toasket.Items
     public class MatchItem : ReactiveObject
     {
         #region Internal Field
-        private ePick _pick;
+        private eMatchResult _pick;
         #endregion
 
         #region Properties
         public Match Match { get; }
         
-        public ePick Pick
+        public eMatchResult Pick
         {
             get => _pick;
             set => this.RaiseAndSetIfChanged(ref _pick, value);
@@ -25,50 +25,52 @@ namespace Jaywapp.Toasket.Items
 
         public bool IsWinSelected
         {
-            get => Pick == ePick.Win;
+            get => Pick == eMatchResult.Win;
             set
             {
-                if (Brothers.Any(b => b.Pick != ePick.None))
+                if (Brothers.Any(b => b.Pick != eMatchResult.None))
                 {
                     ShowMessage("이미 동일한 경기를 선택하셨습니다.");
                     return;
                 }
 
-                Pick = value ? ePick.Win : ePick.None;
+                Pick = value ? eMatchResult.Win : eMatchResult.None;
             }
         }
 
         public bool IsDrawSelected
         {
-            get => Pick == ePick.Draw;
+            get => Pick == eMatchResult.Draw;
             set
             {
-                if (Brothers.Any(b => b.Pick != ePick.None))
+                if (Brothers.Any(b => b.Pick != eMatchResult.None))
                 {
                     ShowMessage("이미 동일한 경기를 선택하셨습니다.");
                     return;
                 }
 
-                Pick = value ? ePick.Draw : ePick.None;
+                Pick = value ? eMatchResult.Draw : eMatchResult.None;
             }
         }
 
         public bool IsLoseSelected
         {
-            get => Pick == ePick.Lose;
+            get => Pick == eMatchResult.Lose;
             set
             {
-                if (Brothers.Any(b => b.Pick != ePick.None))
+                if (Brothers.Any(b => b.Pick != eMatchResult.None))
                 {
                     ShowMessage("이미 동일한 경기를 선택하셨습니다.");
                     return;
                 }
 
-                Pick = value ? ePick.Lose : ePick.None;
+                Pick = value ? eMatchResult.Lose : eMatchResult.None;
             }
         }
 
         public Visibility DrawButtonVisibility { get; } = Visibility.Visible;
+
+        public Visibility ResultVisibility { get; } = Visibility.Collapsed;
 
         public List<MatchItem> Brothers { get; set; } = new List<MatchItem>();
         #endregion
@@ -77,6 +79,7 @@ namespace Jaywapp.Toasket.Items
         {
             Match = match;
             Pick = match.Pick;
+            ResultVisibility = match.Result != eMatchResult.None ? Visibility.Visible : Visibility.Collapsed;
 
             if (match.Draw == 1)
                 DrawButtonVisibility = Visibility.Collapsed;
@@ -84,7 +87,7 @@ namespace Jaywapp.Toasket.Items
             this.WhenAnyValue(x => x.Pick).Subscribe(ChangePick);
         }
 
-        private void ChangePick(ePick pick)
+        private void ChangePick(eMatchResult pick)
         {
             Match.Pick = pick;
             RaisePropertiesChanged();

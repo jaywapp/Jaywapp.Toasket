@@ -39,6 +39,14 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
+
+                <GridViewColumn Header="결과">
+                    <GridViewColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Visibility="{Binding ResultVisibility}" Text="{Binding Match.Result}"/>
+                        </DataTemplate>
+                    </GridViewColumn.CellTemplate>
+                </GridViewColumn>
                 </GridView>
             </ListView.View>
         </ListView>
