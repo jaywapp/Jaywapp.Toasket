@@ -8,6 +8,7 @@ namespace Jaywapp.Toasket.Model
     {
         public int No { get; set; }
         public DateTime Time { get; set; }
+        public string Category { get; set; }
         public string Home { get; set; }
         public string Away { get; set; }
         public double Win { get; set; }
@@ -16,17 +17,21 @@ namespace Jaywapp.Toasket.Model
         public string Comment { get; set; }
         public ePick Pick { get; set; }
 
-        public Match() : this(0, default, "", "", 1, 1, 1)
+        public Match() : this(0, default, "", "", "", 1, 1, 1)
         {
         }
 
-        public Match(int no, DateTime time, string home, string away, double win, double draw, double lose, string comment = null)
+        public Match(
+            int no, DateTime time,
+            string category, string home, string away, 
+            double win, double draw, double lose, 
+            string comment = null)
         {
             No = no;
             Time = time;
             Home = home;
             Away = away;
-
+            Category = category;
             Win = win;
             Draw = draw;
             Lose = lose;
@@ -49,7 +54,7 @@ namespace Jaywapp.Toasket.Model
 
         public Match Copy()
         {
-            var match = new Match(No, Time, Home, Away, Win, Draw, Lose, Comment);
+            var match = new Match(No, Time, Category, Home, Away, Win, Draw, Lose, Comment);
             match.Pick = Pick;
 
             return match;
@@ -62,6 +67,7 @@ namespace Jaywapp.Toasket.Model
             element.Add(
                 new XAttribute(nameof(No), No),
                 new XAttribute(nameof(Time), Time),
+                new XAttribute(nameof(Category), Category),
                 new XAttribute(nameof(Home), Home),
                 new XAttribute(nameof(Away), Away),
                 new XAttribute(nameof(Win), Win),
@@ -82,6 +88,8 @@ namespace Jaywapp.Toasket.Model
                 No = no;
             if (element.TryGetAttributeDateTime(nameof(Time), out DateTime time))
                 Time = time;
+            if (element.TryGetAttributeValue(nameof(Category), out string category))
+                Category = category;
             if (element.TryGetAttributeValue(nameof(Home), out string home))
                 Home = home;
             if (element.TryGetAttributeValue(nameof(Away), out string away))

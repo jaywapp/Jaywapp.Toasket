@@ -59,8 +59,8 @@ namespace Jaywapp.Toasket.Service
                 || !ContentConverter.TryConvertDateTime(contentSet[1], year, out DateTime date))
                 return null;
 
+            var category = contentSet[2];
             /*
-            var contest = contentSet[2];
             var category = GetCategory(contest);
             */
 
@@ -70,7 +70,7 @@ namespace Jaywapp.Toasket.Service
             var draw = GetAllocationPoint(contentSet[7]);
             var lose = GetAllocationPoint(contentSet[8]);
 
-            return new Match(no, date, home, away, win, draw, lose);
+            return new Match(no, date, category, home, away, win, draw, lose);
         }
 
         private static Match CreateHandicapMatch(List<string> contentSet, int year, int protoNo)
@@ -79,8 +79,8 @@ namespace Jaywapp.Toasket.Service
                   || !ContentConverter.TryConvertDateTime(contentSet[1], year, out DateTime date))
                 return null;
 
+            var category = contentSet[2];
             /*
-            var contest = contentSet[2];
             var category = GetCategory(contest);
 
             var handicap = GetNumber(contentSet[3]);
@@ -93,7 +93,7 @@ namespace Jaywapp.Toasket.Service
             var draw = GetAllocationPoint(contentSet[8]);
             var lose = GetAllocationPoint(contentSet[9]);
 
-            return new Match(no, date, home, away, win, draw, lose, content);
+            return new Match(no, date, category, home, away, win, draw, lose, content);
         }
 
         private static Match CreateUnderOverMatch(List<string> contentSet, int year, int protoNo)
@@ -102,8 +102,8 @@ namespace Jaywapp.Toasket.Service
                     || !ContentConverter.TryConvertDateTime(contentSet[1], year, out DateTime date))
                 return null;
 
+            var category = contentSet[2];
             /*
-            var contest = contentSet[2];
             var category = GetCategory(contest);
 
             var underOverScore = GetNumber(contentSet[3]);
@@ -116,7 +116,7 @@ namespace Jaywapp.Toasket.Service
             var home = contentSet[4];
             var away = contentSet[6];
 
-            return new Match(no, date, home, away, win, 1, lose, content);
+            return new Match(no, date, category, home, away, win, 1, lose, content);
         }
 
         private static double GetAllocationPoint(string str)

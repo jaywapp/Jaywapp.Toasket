@@ -9,6 +9,7 @@
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="번호" Width="35" DisplayMemberBinding="{Binding Match.No}"/>
+                    <GridViewColumn Header="구분" DisplayMemberBinding="{Binding Match.Category}"/>
                     <GridViewColumn Header="홈" DisplayMemberBinding="{Binding Match.Home}"/>
                     <GridViewColumn Header="원정" DisplayMemberBinding="{Binding Match.Away}"/>
                     <GridViewColumn Header="시간" DisplayMemberBinding="{Binding Match.Time}"/>
