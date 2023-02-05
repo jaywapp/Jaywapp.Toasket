@@ -15,17 +15,19 @@ namespace Jaywapp.Toasket.Model
         public double Draw { get; set; }
         public double Lose { get; set; }
         public string Comment { get; set; }
-        public ePick Pick { get; set; }
+        public eMatchResult Pick { get; set; }
+        public eMatchResult Result { get; set; }
 
-        public Match() : this(0, default, "", "", "", 1, 1, 1)
+        public Match() : this(0, default, "", "", "", 1, 1, 1, "")
         {
         }
 
         public Match(
             int no, DateTime time,
             string category, string home, string away, 
-            double win, double draw, double lose, 
-            string comment = null)
+            double win, double draw, double lose,
+            string comment,
+            eMatchResult result = eMatchResult.None)
         {
             No = no;
             Time = time;
@@ -35,6 +37,7 @@ namespace Jaywapp.Toasket.Model
             Win = win;
             Draw = draw;
             Lose = lose;
+            Result = result;
 
             Comment = comment ?? string.Empty;
         }
@@ -43,10 +46,10 @@ namespace Jaywapp.Toasket.Model
         {
             switch (Pick)
             {
-                case ePick.Win: return Win;
-                case ePick.Draw: return Draw;
-                case ePick.Lose: return Lose;
-                case ePick.None:
+                case eMatchResult.Win: return Win;
+                case eMatchResult.Draw: return Draw;
+                case eMatchResult.Lose: return Lose;
+                case eMatchResult.None:
                 default:
                     return 1;
             }
@@ -54,7 +57,7 @@ namespace Jaywapp.Toasket.Model
 
         public Match Copy()
         {
-            var match = new Match(No, Time, Category, Home, Away, Win, Draw, Lose, Comment);
+            var match = new Match(No, Time, Category, Home, Away, Win, Draw, Lose, Comment, Result);
             match.Pick = Pick;
 
             return match;
@@ -75,6 +78,9 @@ namespace Jaywapp.Toasket.Model
                 new XAttribute(nameof(Lose), Lose),
                 new XAttribute(nameof(Comment), Comment),
                 new XAttribute(nameof(Pick), Pick));
+
+            if (Result != eMatchResult.None)
+                element.Add(new XAttribute(nameof(Result), Result));
 
             return element;
         }
@@ -102,8 +108,10 @@ namespace Jaywapp.Toasket.Model
                 Lose = lose;
             if (element.TryGetAttributeValue(nameof(Comment), out string comment))
                 Comment = comment;
-            if (element.TryGetAttributeEnum(nameof(Pick), out ePick pick))
+            if (element.TryGetAttributeEnum(nameof(Pick), out eMatchResult pick))
                 Pick = pick;
+            if (element.TryGetAttributeEnum(nameof(Result), out eMatchResult result))
+                Result = result;
         }
     }
 }

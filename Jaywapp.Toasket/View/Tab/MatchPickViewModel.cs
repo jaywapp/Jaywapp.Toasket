@@ -53,7 +53,7 @@ namespace Jaywapp.Toasket.View.Tab
                 .AutoRefresh(i => i.Pick)
                 .Throttle(TimeSpan.FromSeconds(0.01))
                 .ToCollection()
-                .Select(col => col.Where(c => c.Pick != ePick.None).ToList())
+                .Select(col => col.Where(c => c.Pick != eMatchResult.None).ToList())
                 .ToProperty(this, x => x.SelectedItems, out _selectedItems);
 
             this.WhenAnyValue(x => x.SelectedItems)
@@ -102,7 +102,7 @@ namespace Jaywapp.Toasket.View.Tab
             _personalRepo.Add(box);
 
             foreach (var selectedItem in SelectedItems)
-                selectedItem.Pick = ePick.None;
+                selectedItem.Pick = eMatchResult.None;
 
             StatusViewModel.Money = 0;
         }
