@@ -69,14 +69,6 @@
     <Compile Include="Service\Crawler.cs" />
     <Compile Include="Service\MatchRepositoryLoader.cs" />
     <Compile Include="ShellViewModel.cs" />
-    <Compile Include="View\Analysis\EarningView.xaml.cs">
-      <DependentUpon>EarningView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\Analysis\EarningViewModel.cs" />
-    <Compile Include="View\Analysis\SpendingView.xaml.cs">
-      <DependentUpon>SpendingView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\Analysis\SpendingViewModel.cs" />
     <Compile Include="View\Tab\AnalysisView.xaml.cs">
       <DependentUpon>AnalysisView.xaml</DependentUpon>
     </Compile>
@@ -127,14 +119,6 @@
       <DependentUpon>Shell.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="View\Analysis\EarningView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\Analysis\SpendingView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="View\Tab\AnalysisView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

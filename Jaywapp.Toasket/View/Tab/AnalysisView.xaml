@@ -4,17 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:prism="http://prismlibrary.com/" 
-             xmlns:analysis="clr-namespace:Jaywapp.Toasket.View.Analysis"
              prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <TabControl>
-        <TabItem Header="수익">
-            <analysis:EarningView DataContext="{Binding EarningViewModel}"/>
-        </TabItem>
-
-        <TabItem Header="지출">
-            <analysis:SpendingView DataContext="{Binding SpendingViewModel}"/>
-        </TabItem>
-    </TabControl>
 </UserControl>
