@@ -6,7 +6,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
         xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
-        mc:Ignorable="d" Title="MainWindow" Height="450" Width="900">
+        mc:Ignorable="d" Title="Toasket" Height="450" Width="900">
     <Window.Style>
         <Style TargetType="Window" BasedOn="{StaticResource {x:Type Window}}"/>
     </Window.Style>
@@ -16,10 +16,10 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Column="0" Margin="0, 0, 10, 0">
-            <Button Content="Home" Margin="0, 0, 0, 5" Command="{Binding ActiveHomeViewCommand}"/>
-            <Button Content="Pick" Margin="0, 0, 0, 5" Command="{Binding ActiveMatchViewCommand}"/>
-            <Button Content="Box" Margin="0, 0, 0, 5" Command="{Binding ActiveBasketViewCommand}"/>
-            <Button Content="Analysis" Margin="0, 0, 0, 5" Command="{Binding ActiveAnalysisViewCommand}"/>
+            <Button Content="홈" Margin="0, 0, 0, 5" Command="{Binding ActiveHomeViewCommand}"/>
+            <Button Content="프로토 픽" Margin="0, 0, 0, 5" Command="{Binding ActiveMatchViewCommand}"/>
+            <Button Content="픽 내역" Margin="0, 0, 0, 5" Command="{Binding ActiveBasketViewCommand}"/>
+            <Button Content="분석" Margin="0, 0, 0, 5" Command="{Binding ActiveAnalysisViewCommand}"/>
         </StackPanel>
         <UserControl Grid.Column="1" Content="{Binding ActiveView}"/>
     </Grid>

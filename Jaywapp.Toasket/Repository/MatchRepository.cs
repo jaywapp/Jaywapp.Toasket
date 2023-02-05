@@ -1,6 +1,8 @@
 ﻿using Jaywapp.Toasket.Model;
+using Jaywapp.Toasket.Service;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Jaywapp.Toasket.Repository
 {
@@ -8,15 +10,14 @@ namespace Jaywapp.Toasket.Repository
     {
         public List<Match> Matches { get; } = new List<Match>();
 
-        public MatchRepository()
+        public MatchRepository(Crawler crawler)
         {
-            Matches = new List<Match>()
-            {
-                new Match(1, DateTime.Today, "Seoul", "Suwon", 2.5, 2.95, 2.4),
-                new Match(2, DateTime.Today, "Real Madrid", "Manchester City", 2.01, 3.05, 2.5),
-                new Match(3, DateTime.Today.AddDays(1), "Arsenal", "Manchester United", 1.95, 3.05, 3.2),
-                new Match(4, DateTime.Today.AddDays(1), "Tottenham", "Bunrey", 1.2, 3.4, 5.12),
-            };
+            Matches = crawler.CrawlMatches(2023, 16).ToList();
+        }
+
+        public void Add(IEnumerable<Match> matchs)
+        {
+            Matches.AddRange(matchs);
         }
 
         public IEnumerable<Match> Collect(DateTime day)

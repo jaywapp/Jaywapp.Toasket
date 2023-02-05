@@ -87,6 +87,14 @@ namespace Jaywapp.Toasket.View.Tab
                 .Select(d => new MatchItem(d))
                 .ToList();
 
+            var groups = result.GroupBy(r => r.Match.Home + " " + r.Match.Away).ToList();
+
+            foreach(var group in groups)
+            {
+                foreach(var member in group)
+                    member.Brothers = group.Where(i => i != member).ToList();
+            }
+
             Thread.Sleep(1000);
 
             _shellViewModel.End();

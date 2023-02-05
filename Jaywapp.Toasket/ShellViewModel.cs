@@ -7,7 +7,7 @@ using System.Windows.Controls;
 
 namespace Jaywapp.Toasket
 {
-    public class ShellViewModel : ReactiveObject
+    public class ShellViewModel : ReactiveObject, IDisposable
     {
         #region Internal Field
         private readonly IUnityContainer _container;
@@ -75,6 +75,10 @@ namespace Jaywapp.Toasket
         {
             BusyContent = string.Empty;
             IsBusy = false;
+        }
+
+        public void Dispose()
+        {
         }
         #endregion
     }

@@ -5,7 +5,6 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:adonisUi="clr-namespace:AdonisUI;assembly=AdonisUI"
              mc:Ignorable="d" d:DesignHeight="450" d:DesignWidth="800">
-    <ScrollViewer>
         <ListView ItemsSource="{Binding Items}">
             <ListView.View>
                 <GridView>
@@ -13,6 +12,7 @@
                     <GridViewColumn Header="홈" DisplayMemberBinding="{Binding Match.Home}"/>
                     <GridViewColumn Header="원정" DisplayMemberBinding="{Binding Match.Away}"/>
                     <GridViewColumn Header="시간" DisplayMemberBinding="{Binding Match.Time}"/>
+                    <GridViewColumn Header="내용" DisplayMemberBinding="{Binding Match.Comment}"/>
                     <GridViewColumn Header="승" Width="60">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
@@ -25,7 +25,8 @@
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <ToggleButton Width="40" Style="{DynamicResource {x:Static adonisUi:Styles.DefaultToAccentToggleButton }}"  
-                                              Content="{Binding Match.Draw}" IsChecked="{Binding IsDrawSelected}"/>
+                                              Content="{Binding Match.Draw}" IsChecked="{Binding IsDrawSelected}"
+                                              Visibility="{Binding DrawButtonVisibility}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -40,5 +41,4 @@
                 </GridView>
             </ListView.View>
         </ListView>
-    </ScrollViewer>
 </UserControl>

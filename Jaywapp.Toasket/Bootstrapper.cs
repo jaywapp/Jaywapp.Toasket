@@ -1,4 +1,5 @@
 ﻿using Jaywapp.Toasket.Repository;
+using Jaywapp.Toasket.Service;
 using Jaywapp.Toasket.View.Tab;
 using Microsoft.Practices.Unity;
 using Prism.Mvvm;
@@ -15,6 +16,7 @@ namespace Jaywapp.Toasket
         {
             base.ConfigureContainer();
 
+            Register<Crawler>();
             Register<MatchRepository>();
             Register<PersonalRepository>();
 
