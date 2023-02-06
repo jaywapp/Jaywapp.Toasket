@@ -3,23 +3,18 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:item="clr-namespace:Jaywapp.Toasket.View.Item"
              mc:Ignorable="d" d:DesignHeight="450" d:DesignWidth="800">
-    <ScrollViewer >
-        <ListBox ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem}" HorizontalAlignment="Center">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel HorizontalAlignment="Center" >
-                        <TextBlock Grid.Row="0" TextAlignment="Center" HorizontalAlignment="Center" Text="{Binding Box.Created}"/>
-                        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
-                            <TextBlock TextAlignment="Center" Text="{Binding Ratio}"/>
-                            <TextBlock TextAlignment="Center" Text=" X "/>
-                            <TextBlock TextAlignment="Center" Text="{Binding Money}"/>
-                            <TextBlock TextAlignment="Center" Text=" = "/>
-                            <TextBlock TextAlignment="Center"  FontWeight="Bold" Text="{Binding ReturnMoney}"/>
-                        </StackPanel>
-                    </StackPanel>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
-    </ScrollViewer>
+    <ListBox ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem}" HorizontalAlignment="Center">
+        <ListBox.ItemContainerStyle>
+            <Style TargetType="ListBoxItem">
+                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            </Style>
+        </ListBox.ItemContainerStyle>
+        <ListBox.ItemTemplate>
+            <DataTemplate>
+                <item:BoxItemView BorderBrush="LightGray" BorderThickness="1" DataContext="{Binding}"/>
+            </DataTemplate>
+        </ListBox.ItemTemplate>
+    </ListBox>
 </UserControl>
