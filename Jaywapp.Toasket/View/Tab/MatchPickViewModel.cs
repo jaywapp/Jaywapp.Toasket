@@ -57,10 +57,12 @@ namespace Jaywapp.Toasket.View.Tab
                 .ToProperty(this, x => x.SelectedItems, out _selectedItems);
 
             this.WhenAnyValue(x => x.SelectedItems)
+                .Where(items => items != null)
                 .Select(items => items.Count)
                 .BindTo(this, x => x.StatusViewModel.Count);
 
             this.WhenAnyValue(x => x.SelectedItems)
+                .Where(items => items != null)
                 .Select(items => Calculater.Multiply(items, i => i.Match.GetRatio()))
                 .BindTo(this, x => x.StatusViewModel.Ratio);
 

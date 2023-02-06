@@ -16,9 +16,17 @@
         </Grid.RowDefinitions>
         <list:MatchItemListView Grid.Row="0" DataContext="{Binding MatchItemListViewModel}"/>
 
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <view:StatusView Grid.Column="0" DataContext="{Binding StatusViewModel}"/>
+            <Button Grid.Column="1" Content="담기" Width="100" IsEnabled="{Binding IsConfirmable}" Command="{Binding ConfirmCommand}"/>
+        </Grid>
+
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
-            <view:StatusView DataContext="{Binding StatusViewModel}"/>
-            <Button Content="담기" Width="100" IsEnabled="{Binding IsConfirmable}" Command="{Binding ConfirmCommand}"/>
+        
         </StackPanel>
     </Grid>
 </UserControl>

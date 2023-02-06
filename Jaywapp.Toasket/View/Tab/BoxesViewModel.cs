@@ -58,7 +58,9 @@ namespace Jaywapp.Toasket.View.Tab
 
         private void SwitchEvent(BoxItemConfigViewModel oldTarget, BoxItemConfigViewModel newTarget)
         {
-            oldTarget.ContentChagned -= OnBoxItemContentChanged;
+            if(oldTarget != null)
+                oldTarget.ContentChagned -= OnBoxItemContentChanged;
+
             newTarget.ContentChagned += OnBoxItemContentChanged;
         }
         #endregion

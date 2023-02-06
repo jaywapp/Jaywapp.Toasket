@@ -68,6 +68,12 @@
     <Compile Include="Service\ContentConverter.cs" />
     <Compile Include="Service\Crawler.cs" />
     <Compile Include="ShellViewModel.cs" />
+    <Compile Include="View\Item\BoxItemView.xaml.cs">
+      <DependentUpon>BoxItemView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Item\MatchItemView.xaml.cs">
+      <DependentUpon>MatchItemView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Tab\AnalysisView.xaml.cs">
       <DependentUpon>AnalysisView.xaml</DependentUpon>
     </Compile>
@@ -118,6 +124,14 @@
       <DependentUpon>Shell.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\Item\BoxItemView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Item\MatchItemView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Tab\AnalysisView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

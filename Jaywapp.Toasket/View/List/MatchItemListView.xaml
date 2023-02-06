@@ -3,49 +3,23 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:adonisUi="clr-namespace:AdonisUI;assembly=AdonisUI"
-             mc:Ignorable="d" d:DesignHeight="450" d:DesignWidth="800">
-        <ListView ItemsSource="{Binding Items}">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="번호" Width="35" DisplayMemberBinding="{Binding Match.No}"/>
-                    <GridViewColumn Header="구분" DisplayMemberBinding="{Binding Match.Category}"/>
-                    <GridViewColumn Header="홈" DisplayMemberBinding="{Binding Match.Home}"/>
-                    <GridViewColumn Header="원정" DisplayMemberBinding="{Binding Match.Away}"/>
-                    <GridViewColumn Header="시간" DisplayMemberBinding="{Binding Match.Time}"/>
-                    <GridViewColumn Header="내용" DisplayMemberBinding="{Binding Match.Comment}"/>
-                    <GridViewColumn Header="승" Width="60">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <ToggleButton Width="40"  Style="{DynamicResource {x:Static adonisUi:Styles.DefaultToAccentToggleButton }}" 
-                                              Content="{Binding Match.Win}" IsChecked="{Binding IsWinSelected}" Visibility="{Binding WinButtonVisibility}"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Header="무" Width="60">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <ToggleButton Width="40" Style="{DynamicResource {x:Static adonisUi:Styles.DefaultToAccentToggleButton }}"  
-                                              Content="{Binding Match.Draw}" IsChecked="{Binding IsDrawSelected}" Visibility="{Binding DrawButtonVisibility}"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Header="패"  Width="60">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <ToggleButton Width="40"  Style="{DynamicResource {x:Static adonisUi:Styles.DefaultToAccentToggleButton }}" 
-                                              Content="{Binding Match.Lose}" IsChecked="{Binding IsLoseSelected}" Visibility="{Binding LoseButtonVisibility}"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                <GridViewColumn Header="결과">
-                    <GridViewColumn.CellTemplate>
-                        <DataTemplate>
-                            <TextBlock Visibility="{Binding ResultVisibility}" Text="{Binding Match.Result}"/>
-                        </DataTemplate>
-                    </GridViewColumn.CellTemplate>
-                </GridViewColumn>
-                </GridView>
-            </ListView.View>
-        </ListView>
+             xmlns:item="clr-namespace:Jaywapp.Toasket.View.Item"
+             mc:Ignorable="d" d:DesignHeight="450" d:DesignWidth="800"
+             x:Name="_userControl">
+    <DockPanel>
+        <ListBox DockPanel.Dock="Left" ItemsSource="{Binding Items}"  HorizontalContentAlignment="Stretch" >
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem"> 
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                </Style>
+           
+            </ListBox.ItemContainerStyle>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <item:MatchItemView
+                        Margin="2, 2, 2, 2" BorderBrush="LightGray" BorderThickness="1" DataContext="{Binding}" />
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </DockPanel>
 </UserControl>
