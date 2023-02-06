@@ -20,12 +20,8 @@ namespace Jaywapp.Toasket.View
         #endregion
 
         #region Properties
-        public BoxItem Item
-        {
-            get => _item;
-            set => this.RaiseAndSetIfChanged(ref _item, value);
-        }
-
+        public BoxItem Item { get; }
+        
         public int Count
         {
             get => _count;
@@ -57,6 +53,10 @@ namespace Jaywapp.Toasket.View
         public MatchItemListViewModel MatchItemListViewModel { get; }
         #endregion
 
+        #region Event
+        public EventHandler ContentChagned;
+        #endregion
+
         #region Constructor
         public BoxItemConfigViewModel(BoxItem item)
         {
@@ -64,9 +64,8 @@ namespace Jaywapp.Toasket.View
             StatusViewModel = new StatusViewModel();
             MatchItemListViewModel = new MatchItemListViewModel();
 
-            var itemChanges = this.WhenAnyValue(x => x.Item).Where(i => i != null);
-
-            itemChanges
+            this.WhenAnyValue(x => x.Item)
+                .Where(i => i != null)
                 .Select(i => i.Children)
                 .BindTo(this, x => x.MatchItemListViewModel.Items);
 
@@ -80,6 +79,9 @@ namespace Jaywapp.Toasket.View
 
             StatusViewModel.WhenAnyValue(x => x.Money)
                 .BindTo(this, x => x.Item.Money);
+
+            item.WhenAnyValue(i => i.Money, i => i.Ratio)
+                .Subscribe(o => ContentChagned?.Invoke(this, EventArgs.Empty));
         }
         #endregion
     }

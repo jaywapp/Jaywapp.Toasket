@@ -37,11 +37,5 @@ namespace Jaywapp.Toasket.View
             set => this.RaiseAndSetIfChanged(ref _returnMoney, value);
         }
         #endregion
-
-        #region Constructor
-        public StatusViewModel()
-        {
-        }
-        #endregion
     }
 }

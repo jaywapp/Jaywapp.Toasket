@@ -8,27 +8,16 @@ namespace Jaywapp.Toasket.Repository
 {
     public class MatchRepository
     {
+        #region Properties
         public List<Match> Matches { get; } = new List<Match>();
+        #endregion
 
+        #region Constructor
         public MatchRepository(Crawler crawler)
         {
             Matches = crawler.CrawlMatches(2023, 16).ToList();
+            // TODO : 회차 수집 방법 고민
         }
-
-        public void Add(IEnumerable<Match> matchs)
-        {
-            Matches.AddRange(matchs);
-        }
-
-        public IEnumerable<Match> Collect(DateTime day)
-        {
-            foreach (var match in Matches)
-            {
-                if (match.Time.Year == day.Year
-                    && match.Time.Month == day.Month
-                    && match.Time.Day == day.Day)
-                    yield return match;
-            }
-        }
+        #endregion
     }
 }

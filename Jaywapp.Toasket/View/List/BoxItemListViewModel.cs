@@ -6,9 +6,12 @@ namespace Jaywapp.Toasket.View.List
 {
     public class BoxItemListViewModel : ReactiveObject
     {
+        #region Internal Field
         private ObservableCollection<BoxItem> _items = new ObservableCollection<BoxItem>();
         private BoxItem _selectedItem;
+        #endregion
 
+        #region Properties
         public ObservableCollection<BoxItem> Items
         {
             get => _items;
@@ -20,5 +23,6 @@ namespace Jaywapp.Toasket.View.List
             get => _selectedItem;
             set => this.RaiseAndSetIfChanged(ref _selectedItem, value);
         }
+        #endregion
     }
 }

@@ -12,18 +12,27 @@ namespace Jaywapp.Toasket.View
 {
     public class BoxesConfigViewModel : ReactiveObject
     {
+        #region Internal Field
         private readonly PersonalRepository _personalRepository;
+
         private ObservableAsPropertyHelper<bool> _isActiveSelection;
         private ObservableAsPropertyHelper<BoxItem> _selectedItem;
+        #endregion
 
+        #region Properties
         public bool IsActiveSelection => _isActiveSelection.Value;
-
         public BoxItem SelectedItem => _selectedItem.Value;
+        #endregion
 
+        #region Commands
         public DelegateCommand DeleteCommand { get; }
+        #endregion
 
+        #region ViewModels
         public BoxItemListViewModel BoxItemListViewModel { get; }
+        #endregion
 
+        #region Constructor
         public BoxesConfigViewModel(PersonalRepository personalRepository)
         {
             _personalRepository = personalRepository ?? throw new ArgumentNullException(nameof(personalRepository));
@@ -41,11 +50,12 @@ namespace Jaywapp.Toasket.View
             personalRepository.Updated += OnUpdate;
             OnUpdate(personalRepository, EventArgs.Empty);
         }
+        #endregion
 
+        #region Functions
         private void Delete()
         {
-            _personalRepository.Delete(
-                BoxItemListViewModel.SelectedItem.Box);
+            _personalRepository.Delete(BoxItemListViewModel.SelectedItem.Box);
         }
 
         private void OnUpdate(object sender, EventArgs e)
@@ -57,5 +67,6 @@ namespace Jaywapp.Toasket.View
                 .Select(b => new BoxItem(b))
                 .ToObservableCollection();
         }
+        #endregion
     }
 }

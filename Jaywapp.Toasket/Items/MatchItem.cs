@@ -26,46 +26,19 @@ namespace Jaywapp.Toasket.Items
         public bool IsWinSelected
         {
             get => Pick == eMatchResult.Win;
-            set
-            {
-                if (Brothers.Any(b => b.Pick != eMatchResult.None))
-                {
-                    ShowMessage("이미 동일한 경기를 선택하셨습니다.");
-                    return;
-                }
-
-                Pick = value ? eMatchResult.Win : eMatchResult.None;
-            }
+            set => SetPick(value, eMatchResult.Win);
         }
 
         public bool IsDrawSelected
         {
             get => Pick == eMatchResult.Draw;
-            set
-            {
-                if (Brothers.Any(b => b.Pick != eMatchResult.None))
-                {
-                    ShowMessage("이미 동일한 경기를 선택하셨습니다.");
-                    return;
-                }
-
-                Pick = value ? eMatchResult.Draw : eMatchResult.None;
-            }
+            set => SetPick(value, eMatchResult.Draw);
         }
 
         public bool IsLoseSelected
         {
             get => Pick == eMatchResult.Lose;
-            set
-            {
-                if (Brothers.Any(b => b.Pick != eMatchResult.None))
-                {
-                    ShowMessage("이미 동일한 경기를 선택하셨습니다.");
-                    return;
-                }
-
-                Pick = value ? eMatchResult.Lose : eMatchResult.None;
-            }
+            set => SetPick(value, eMatchResult.Lose);
         }
 
         public Visibility DrawButtonVisibility { get; } = Visibility.Visible;
@@ -75,16 +48,27 @@ namespace Jaywapp.Toasket.Items
         public List<MatchItem> Brothers { get; set; } = new List<MatchItem>();
         #endregion
 
+        #region Constructor
         public MatchItem(Match match)
         {
             Match = match;
             Pick = match.Pick;
-            ResultVisibility = match.Result != eMatchResult.None ? Visibility.Visible : Visibility.Collapsed;
-
-            if (match.Draw == 1)
-                DrawButtonVisibility = Visibility.Collapsed;
+            ResultVisibility = match.Result != eMatchResult.None 
+                ? Visibility.Visible : Visibility.Collapsed;
+            DrawButtonVisibility = match.Draw != 1 
+                ? Visibility.Visible : Visibility.Collapsed;
 
             this.WhenAnyValue(x => x.Pick).Subscribe(ChangePick);
+        }
+        #endregion
+
+        #region Functions
+        private void SetPick(bool isSelected, eMatchResult pick)
+        {
+            if (Brothers.Any(b => b.Pick != eMatchResult.None))
+                ShowMessage("이미 동일한 경기를 선택하셨습니다.");
+            else 
+                Pick = isSelected ? pick : eMatchResult.None;
         }
 
         private void ChangePick(eMatchResult pick)
@@ -107,13 +91,11 @@ namespace Jaywapp.Toasket.Items
                 Text = msg,
                 Caption = "Info",
                 Icon = AdonisUI.Controls.MessageBoxImage.Information,
-                Buttons = new IMessageBoxButtonModel[]
-                {
-                    AdonisUI.Controls.MessageBoxButtons.Ok(),
-                },
+                Buttons = new IMessageBoxButtonModel[] { MessageBoxButtons.Ok(), },
             };
 
             AdonisUI.Controls.MessageBox.Show(messageBox);
         }
+        #endregion
     }
 }

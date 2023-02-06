@@ -7,10 +7,13 @@ namespace Jaywapp.Toasket.View.Base
 {
     public abstract class ContainableReactiveObject : ReactiveObject
     {
+        #region Internal Field
         protected readonly IUnityContainer _container;
         protected readonly MatchRepository _matchRepo;
         protected readonly PersonalRepository _personalRepo;
+        #endregion
 
+        #region Constructor
         public ContainableReactiveObject(
             IUnityContainer container, 
             MatchRepository matchRepo,
@@ -20,5 +23,6 @@ namespace Jaywapp.Toasket.View.Base
             _matchRepo = matchRepo ?? throw new ArgumentNullException(nameof(matchRepo));
             _personalRepo = personalRepo ?? throw new ArgumentNullException(nameof(personalRepo));
         }
+        #endregion
     }
 }

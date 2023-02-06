@@ -6,6 +6,7 @@ namespace Jaywapp.Toasket.Model
 {
     public class Match : IXmlFileSerializable
     {
+        #region Properties
         public int No { get; set; }
         public DateTime Time { get; set; }
         public string Category { get; set; }
@@ -17,11 +18,9 @@ namespace Jaywapp.Toasket.Model
         public string Comment { get; set; }
         public eMatchResult Pick { get; set; }
         public eMatchResult Result { get; set; }
+        #endregion
 
-        public Match() : this(0, default, "", "", "", 1, 1, 1, "")
-        {
-        }
-
+        #region Constructor
         public Match(
             int no, DateTime time,
             string category, string home, string away, 
@@ -42,6 +41,10 @@ namespace Jaywapp.Toasket.Model
             Comment = comment ?? string.Empty;
         }
 
+        public Match() : this(0, default, "", "", "", 1, 1, 1, "") { }
+        #endregion
+
+        #region Functions
         public double GetRatio()
         {
             switch (Pick)
@@ -113,5 +116,6 @@ namespace Jaywapp.Toasket.Model
             if (element.TryGetAttributeEnum(nameof(Result), out eMatchResult result))
                 Result = result;
         }
+        #endregion
     }
 }

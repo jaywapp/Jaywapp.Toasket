@@ -9,14 +9,13 @@ namespace Jaywapp.Toasket.Model
 {
     public class Box : IXmlFileSerializable
     {
+        #region Properties
         public DateTime Created { get; set; }
         public List<Match> Picks { get; set; } = new List<Match>();
         public int Money { get; set; }
+        #endregion
 
-        public Box() : this(Enumerable.Empty<Match>(), 0)
-        {
-        }
-
+        #region Constructor
         public Box(IEnumerable<Match> picks, int money)
         {
             Created = DateTime.Now;
@@ -24,6 +23,12 @@ namespace Jaywapp.Toasket.Model
             Money = money;
         }
 
+        public Box() : this(Enumerable.Empty<Match>(), 0)
+        {
+        }
+        #endregion
+
+        #region Functions
         public double GetRatio() => Calculater.Multiply(Picks, p => p.GetRatio());
 
         public int GetReturnMoney() => (int)(GetRatio() * Money);
@@ -59,5 +64,6 @@ namespace Jaywapp.Toasket.Model
 
             Picks = picks;
         }
+        #endregion
     }
 }

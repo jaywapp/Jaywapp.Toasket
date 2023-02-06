@@ -28,6 +28,7 @@ namespace Jaywapp.Toasket.Items
         }
 
         public double Ratio => _ratio.Value;
+        
         public int ReturnMoney => _returnMoney.Value;
 
         public ObservableCollection<MatchItem> Children { get; }
@@ -42,12 +43,9 @@ namespace Jaywapp.Toasket.Items
                 .Select(p => new MatchItem(p))
                 .ToObservableCollection();
 
-            var moneyChanges = this.WhenAnyValue(x => x.Money);
-
-            moneyChanges
+            this.WhenAnyValue(x => x.Money)
                 .BindTo(this, x => x.Box.Money);
-
-            moneyChanges
+            this.WhenAnyValue(x => x.Money)
                  .Select(p => Box.GetRatio())
                  .ToProperty(this, x => x.Ratio, out _ratio);
 

@@ -10,22 +10,33 @@ namespace Jaywapp.Toasket.Repository
 {
     public class PersonalRepository : IXmlFileSerializable
     {
+        #region Const Field
         private const string FILE_NAME = @"PersonalRepository.xml";
+        #endregion
 
+        #region Properties
         public List<Box> Boxes { get; set; } = new List<Box>();
+        #endregion
 
+        #region Event
         public EventHandler Updated;
+        #endregion
 
+        #region Constructor
         public PersonalRepository()
         {
             Load(FILE_NAME);
         }
+        #endregion
 
+        #region Destructor
         ~PersonalRepository()
         {
             Save(FILE_NAME);
         }
+        #endregion
 
+        #region Functions
         public void Add(Box box)
         {
             Boxes.Add(box);
@@ -37,6 +48,8 @@ namespace Jaywapp.Toasket.Repository
             Boxes.Remove(box);
             InvokeEvent();
         }
+
+        public void Refresh() => InvokeEvent();
 
         private void InvokeEvent() => Updated?.Invoke(this, EventArgs.Empty);
 
@@ -74,5 +87,6 @@ namespace Jaywapp.Toasket.Repository
             var element = Serialize();
             element.Save(path);
         }
+        #endregion
     }
 }
