@@ -1,6 +1,5 @@
 ﻿using Jaywapp.Toasket.Model;
 using Jaywapp.Toasket.Service;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -15,8 +14,7 @@ namespace Jaywapp.Toasket.Repository
         #region Constructor
         public MatchRepository(Crawler crawler)
         {
-            Matches = crawler.CrawlMatches(2023, 16).ToList();
-            // TODO : 회차 수집 방법 고민
+            Matches = crawler.CrawlMatches();
         }
         #endregion
     }

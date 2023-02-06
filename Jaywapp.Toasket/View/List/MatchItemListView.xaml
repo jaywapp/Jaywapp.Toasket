@@ -18,7 +18,7 @@
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <ToggleButton Width="40"  Style="{DynamicResource {x:Static adonisUi:Styles.DefaultToAccentToggleButton }}" 
-                                              Content="{Binding Match.Win}" IsChecked="{Binding IsWinSelected}"/>
+                                              Content="{Binding Match.Win}" IsChecked="{Binding IsWinSelected}" Visibility="{Binding WinButtonVisibility}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -26,8 +26,7 @@
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <ToggleButton Width="40" Style="{DynamicResource {x:Static adonisUi:Styles.DefaultToAccentToggleButton }}"  
-                                              Content="{Binding Match.Draw}" IsChecked="{Binding IsDrawSelected}"
-                                              Visibility="{Binding DrawButtonVisibility}"/>
+                                              Content="{Binding Match.Draw}" IsChecked="{Binding IsDrawSelected}" Visibility="{Binding DrawButtonVisibility}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -35,11 +34,10 @@
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <ToggleButton Width="40"  Style="{DynamicResource {x:Static adonisUi:Styles.DefaultToAccentToggleButton }}" 
-                                              Content="{Binding Match.Lose}" IsChecked="{Binding IsLoseSelected}"/>
+                                              Content="{Binding Match.Lose}" IsChecked="{Binding IsLoseSelected}" Visibility="{Binding LoseButtonVisibility}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-
                 <GridViewColumn Header="결과">
                     <GridViewColumn.CellTemplate>
                         <DataTemplate>

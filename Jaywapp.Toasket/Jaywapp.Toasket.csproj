@@ -67,7 +67,6 @@
     <Compile Include="Repository\PersonalRepository.cs" />
     <Compile Include="Service\ContentConverter.cs" />
     <Compile Include="Service\Crawler.cs" />
-    <Compile Include="Service\MatchRepositoryLoader.cs" />
     <Compile Include="ShellViewModel.cs" />
     <Compile Include="View\Tab\AnalysisView.xaml.cs">
       <DependentUpon>AnalysisView.xaml</DependentUpon>

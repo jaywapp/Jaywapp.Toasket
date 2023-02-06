@@ -9,36 +9,41 @@ namespace Jaywapp.Toasket.Service
 {
     public class Crawler
     {
+        #region Const Field
         public const string URL = "https://www.wisetoto.com/";
+        private readonly ChromeOptions _options;
+        #endregion
 
-        private ChromeOptions Options { get; }
-
+        #region Constructor
         public Crawler()
         {
-            Options = new ChromeOptions();
-            Options.AddArgument("headless");
+            _options = new ChromeOptions();
+            _options.AddArgument("headless");
         }
+        #endregion
 
-        public IEnumerable<Match> CrawlMatches(int year, int protoNo)
+        #region Functions
+        public List<Match> CrawlMatches()
         {
             var xPath = By.XPath("//*[@id=\"gameinfo_pt1\"]/div[2]");
             var content = string.Empty;
 
-            using (var driver = new ChromeDriver(Options))
+            using (var driver = new ChromeDriver(_options))
             {
                 driver.Url = URL;
                 content = driver.FindElement(xPath).Text;
             }
 
-            var contentSets = Split(content, year).ToList();
+            var result = new List<Match>();
+            var contentSets = Split(content).ToList();
 
             foreach (var contentSet in contentSets)
-            {
-                yield return Create(contentSet, year, protoNo);
-            }
+                result.Add(Create(contentSet));
+
+            return result;
         }
 
-        private static Match Create(List<string> contentSet, int year, int protoNo)
+        private static Match Create(List<string> contentSet)
         {
             var text = contentSet.ElementAtOrDefault(3);
 
@@ -46,17 +51,17 @@ namespace Jaywapp.Toasket.Service
                 return null;
 
             if (text.StartsWith("H"))
-                return CreateHandicapMatch(contentSet, year, protoNo);
+                return CreateHandicapMatch(contentSet);
             else if (text.StartsWith("U"))
-                return CreateUnderOverMatch(contentSet, year, protoNo);
+                return CreateUnderOverMatch(contentSet);
             else
-                return CreateMatch(contentSet, year, protoNo);
+                return CreateMatch(contentSet);
         }
 
-        private static Match CreateMatch(List<string> contentSet, int year, int protoNo)
+        private static Match CreateMatch(List<string> contentSet)
         {
             if (!int.TryParse(contentSet[0], out int no)
-                || !ContentConverter.TryConvertDateTime(contentSet[1], year, out DateTime date))
+                || !ContentConverter.TryConvertDateTime(contentSet[1], DateTime.Now.Year, out DateTime date))
                 return null;
 
             var category = contentSet[2];
@@ -65,46 +70,41 @@ namespace Jaywapp.Toasket.Service
             var win = GetAllocationPoint(contentSet[6]);
             var draw = GetAllocationPoint(contentSet[7]);
             var lose = GetAllocationPoint(contentSet[8]);
-
             var result = GetResult(contentSet.ElementAtOrDefault(9));
 
             return new Match(no, date, category, home, away, win, draw, lose, "", result);
         }
 
-        private static Match CreateHandicapMatch(List<string> contentSet, int year, int protoNo)
+        private static Match CreateHandicapMatch(List<string> contentSet)
         {
             if (!int.TryParse(contentSet[0], out int no)
-                  || !ContentConverter.TryConvertDateTime(contentSet[1], year, out DateTime date))
+                  || !ContentConverter.TryConvertDateTime(contentSet[1], DateTime.Now.Year, out DateTime date))
                 return null;
 
             var category = contentSet[2];
             var content = contentSet[3];
             (var home, var homeScore) = SplitHomeStr(contentSet[4]);
             (var away, var awayScore) = SplitAwayStr(contentSet[6]);
-
             var win = GetAllocationPoint(contentSet[7]);
             var draw = GetAllocationPoint(contentSet[8]);
             var lose = GetAllocationPoint(contentSet[9]);
-
             var result = GetResult(contentSet.ElementAtOrDefault(10));
 
             return new Match(no, date, category, home, away, win, draw, lose, content, result);
         }
 
-        private static Match CreateUnderOverMatch(List<string> contentSet, int year, int protoNo)
+        private static Match CreateUnderOverMatch(List<string> contentSet)
         {
             if (!int.TryParse(contentSet[0], out int no)
-                    || !ContentConverter.TryConvertDateTime(contentSet[1], year, out DateTime date))
+                    || !ContentConverter.TryConvertDateTime(contentSet[1], DateTime.Now.Year, out DateTime date))
                 return null;
 
             var category = contentSet[2];
             var content = contentSet[3];
             var win = GetAllocationPoint(contentSet[7]);
             var lose = GetAllocationPoint(contentSet[9]);
-
             var home = contentSet[4];
             var away = contentSet[6];
-
             var result = GetResult(contentSet.ElementAtOrDefault(10));
 
             return new Match(no, date, category, home, away, win, 1, lose, content, result);
@@ -132,7 +132,6 @@ namespace Jaywapp.Toasket.Service
                     return eMatchResult.None;
             }
         }
-
 
         private static double GetAllocationPoint(string str)
         {
@@ -166,7 +165,7 @@ namespace Jaywapp.Toasket.Service
             return (name, score);
         }
 
-        private static IEnumerable<List<string>> Split(string content, int year)
+        private static IEnumerable<List<string>> Split(string content)
         {
             var splited = content.Split('\n')
                 .Select(c => c.Trim(' ', '\r'))
@@ -177,7 +176,7 @@ namespace Jaywapp.Toasket.Service
 
             foreach (var str in splited)
             {
-                if (ContentConverter.TryConvertDateTime(str, year, out DateTime date))
+                if (ContentConverter.TryConvertDateTime(str, DateTime.Now.Year, out DateTime date))
                     indexes.Add(pivot);
 
                 pivot++;
@@ -201,5 +200,6 @@ namespace Jaywapp.Toasket.Service
                 contentSet.Add(splited[i]);
             }
         }
+        #endregion
     }
 }

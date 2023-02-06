@@ -41,7 +41,9 @@ namespace Jaywapp.Toasket.Items
             set => SetPick(value, eMatchResult.Lose);
         }
 
+        public Visibility WinButtonVisibility { get; } = Visibility.Visible;         
         public Visibility DrawButtonVisibility { get; } = Visibility.Visible;
+        public Visibility LoseButtonVisibility { get; } = Visibility.Visible;
 
         public Visibility ResultVisibility { get; } = Visibility.Collapsed;
 
@@ -53,10 +55,11 @@ namespace Jaywapp.Toasket.Items
         {
             Match = match;
             Pick = match.Pick;
-            ResultVisibility = match.Result != eMatchResult.None 
-                ? Visibility.Visible : Visibility.Collapsed;
-            DrawButtonVisibility = match.Draw != 1 
-                ? Visibility.Visible : Visibility.Collapsed;
+            
+            ResultVisibility = GetVisibility(match.Result);
+            DrawButtonVisibility = GetVisibility(match.Draw);
+            WinButtonVisibility = GetVisibility(match.Win);
+            LoseButtonVisibility = GetVisibility(match.Lose);
 
             this.WhenAnyValue(x => x.Pick).Subscribe(ChangePick);
         }
@@ -96,6 +99,12 @@ namespace Jaywapp.Toasket.Items
 
             AdonisUI.Controls.MessageBox.Show(messageBox);
         }
+
+        private static Visibility GetVisibility(eMatchResult result)
+            => result != eMatchResult.None ? Visibility.Visible : Visibility.Collapsed;
+
+        private static Visibility GetVisibility(double ratio)
+            => ratio != 1 ? Visibility.Visible : Visibility.Collapsed;
         #endregion
     }
 }
