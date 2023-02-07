@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:prism="http://prismlibrary.com/" 
-             xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+             xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf" xmlns:chart="clr-namespace:Jaywapp.Toasket.View.Chart"
              prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
@@ -26,18 +26,7 @@
         </StackPanel>
 
         <TextBlock Grid.Row="0" Grid.Column="1" Text="위험도"/>
-        <lvc:AngularGauge Grid.Row="1" Grid.Column="1"
-                          Value="{Binding Hazard}" FromValue="0" ToValue="100" 
-                          LabelsStep="10" TicksStep="5" Wedge="300"
-                          TicksForeground="White" Foreground="White" 
-                          FontWeight="Bold" FontSize="16"
-                          SectionsInnerRadius=".5">
-            <lvc:AngularGauge.Sections>
-                <lvc:AngularSection FromValue="0" ToValue="30" Fill="Green"/>
-                <lvc:AngularSection FromValue="30" ToValue="70" Fill="Orange"/>
-                <lvc:AngularSection FromValue="70" ToValue="100" Fill="Red"/>
-            </lvc:AngularGauge.Sections>
-        </lvc:AngularGauge>
+        <chart:GageView Grid.Row="1" Grid.Column="1" DataContext="{Binding GageViewModel}"/>
 
         <TextBlock Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Text="기간별 내역"/>
         <lvc:CartesianChart Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
@@ -46,7 +35,7 @@
                 <lvc:Axis Title="월" Labels="{Binding Months}"></lvc:Axis>
             </lvc:CartesianChart.AxisX>
             <lvc:CartesianChart.AxisY>
-                <lvc:Axis Title="금액" LabelFormatter="{Binding Formatter}"></lvc:Axis>
+                <lvc:Axis Title="금액"></lvc:Axis>
             </lvc:CartesianChart.AxisY>
         </lvc:CartesianChart>
     </Grid>

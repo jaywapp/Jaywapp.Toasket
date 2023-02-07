@@ -65,6 +65,14 @@ namespace Jaywapp.Toasket.Model
             Picks = picks;
         }
 
+        public int GetProhit()
+        {
+            if (!IsHitted())
+                return 0;
+
+            return GetReturnMoney() - Money;
+        }
+
         public bool IsHitted() => Picks.All(p => p.IsHitted());
         #endregion
     }

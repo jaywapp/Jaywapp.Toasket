@@ -1,0 +1,22 @@
+﻿<UserControl x:Class="Jaywapp.Toasket.View.Chart.GageView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+             mc:Ignorable="d" d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <lvc:AngularGauge 
+            Value="{Binding Hazard}" FromValue="0" ToValue="100" 
+            LabelsStep="10" TicksStep="5" Wedge="300"
+            TicksForeground="White" Foreground="White" 
+            FontWeight="Bold" FontSize="16"
+            SectionsInnerRadius=".5">
+            <lvc:AngularGauge.Sections>
+                <lvc:AngularSection FromValue="0" ToValue="30" Fill="Green"/>
+                <lvc:AngularSection FromValue="30" ToValue="70" Fill="Orange"/>
+                <lvc:AngularSection FromValue="70" ToValue="100" Fill="Red"/>
+            </lvc:AngularGauge.Sections>
+        </lvc:AngularGauge>
+    </Grid>
+</UserControl>

@@ -68,6 +68,10 @@
     <Compile Include="Service\ContentConverter.cs" />
     <Compile Include="Service\Crawler.cs" />
     <Compile Include="ShellViewModel.cs" />
+    <Compile Include="View\Chart\GageView.xaml.cs">
+      <DependentUpon>GageView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Chart\GageViewModel.cs" />
     <Compile Include="View\Item\BoxItemView.xaml.cs">
       <DependentUpon>BoxItemView.xaml</DependentUpon>
     </Compile>
@@ -124,6 +128,10 @@
       <DependentUpon>Shell.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\Chart\GageView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Item\BoxItemView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
