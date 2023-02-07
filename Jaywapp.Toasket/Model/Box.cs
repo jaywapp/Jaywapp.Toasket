@@ -64,6 +64,8 @@ namespace Jaywapp.Toasket.Model
 
             Picks = picks;
         }
+
+        public bool IsHitted() => Picks.All(p => p.IsHitted());
         #endregion
     }
 }
