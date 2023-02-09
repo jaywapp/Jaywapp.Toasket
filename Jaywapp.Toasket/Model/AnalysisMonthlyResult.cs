@@ -1,10 +1,13 @@
 ﻿using Jaywapp.Toasket.Interface;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Jaywapp.Toasket.Model
 {
-    public class AnalysisResult : IAccount
+    public class AnalysisMonthlyResult : IAccount
     {
         #region Properties
         /// <inheritdoc/>
@@ -13,11 +16,6 @@ namespace Jaywapp.Toasket.Model
         public int Expenditure { get; }
         /// <inheritdoc/>
         public int Profit { get; }
-
-        /// <summary>
-        /// 월별 Result
-        /// </summary>
-        public List<AnalysisMonthlyResult> Monthlys { get; }
         #endregion
 
         #region Constructor
@@ -26,12 +24,11 @@ namespace Jaywapp.Toasket.Model
         /// </summary>
         /// <param name="income"></param>
         /// <param name="expenditure"></param>
-        public AnalysisResult(int income, int expenditure, IEnumerable<AnalysisMonthlyResult> monthlys)
+        public AnalysisMonthlyResult(int income, int expenditure)
         {
             Income = income;
             Expenditure = expenditure;
             Profit = income - expenditure;
-            Monthlys = monthlys.ToList();
         }
         #endregion
     }

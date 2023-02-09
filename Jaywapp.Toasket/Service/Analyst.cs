@@ -29,7 +29,27 @@ namespace Jaywapp.Toasket.Service
             // 총 수익
             var income = hitted.Sum(i => i.Income);
 
-            return new AnalysisResult(income, expenditure);
+            return new AnalysisResult(income, expenditure, AnalysisMonthly(filtered));
+        }
+
+        private IEnumerable<AnalysisMonthlyResult> AnalysisMonthly(IEnumerable<Box> boxes)
+        {
+            var groups = boxes
+                .GroupBy(b => b.Created.Month)
+                .OrderBy(g=> g.Key)
+                .ToList();
+
+            foreach (var group in groups)
+            {
+                var hitted = group.Where(i => i.IsHitted()).ToList();
+
+                // 지출
+                var expenditure = group.Sum(i => i.Expenditure);
+                // 수익
+                var income = hitted.Sum(i => i.Income);
+
+                yield return new AnalysisMonthlyResult(income, expenditure);
+            }
         }
 
         public AnalysisResult Analysis()

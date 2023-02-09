@@ -63,6 +63,7 @@
     <Compile Include="Items\BoxItem.cs" />
     <Compile Include="Items\DateTimeRange.cs" />
     <Compile Include="Items\MatchItem.cs" />
+    <Compile Include="Model\AnalysisMonthlyResult.cs" />
     <Compile Include="Model\AnalysisResult.cs" />
     <Compile Include="Model\Box.cs" />
     <Compile Include="Model\Match.cs" />
