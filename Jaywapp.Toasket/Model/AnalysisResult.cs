@@ -1,4 +1,5 @@
 ﻿using Jaywapp.Toasket.Interface;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -17,7 +18,7 @@ namespace Jaywapp.Toasket.Model
         /// <summary>
         /// 월별 Result
         /// </summary>
-        public List<AnalysisMonthlyResult> Monthlys { get; }
+        public Dictionary<DateTime, AnalysisMonthlyResult> Monthlys { get; }
         #endregion
 
         #region Constructor
@@ -26,12 +27,12 @@ namespace Jaywapp.Toasket.Model
         /// </summary>
         /// <param name="income"></param>
         /// <param name="expenditure"></param>
-        public AnalysisResult(int income, int expenditure, IEnumerable<AnalysisMonthlyResult> monthlys)
+        public AnalysisResult(int income, int expenditure, Dictionary<DateTime, AnalysisMonthlyResult> monthlys)
         {
             Income = income;
             Expenditure = expenditure;
             Profit = income - expenditure;
-            Monthlys = monthlys.ToList();
+            Monthlys = monthlys;
         }
         #endregion
     }

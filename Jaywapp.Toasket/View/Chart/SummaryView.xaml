@@ -11,31 +11,24 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition/>
             <ColumnDefinition Width="*"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
 
         <Grid.Resources>
-            <Style TargetType="TextBlock" x:Key="ProfitHeader">
-            </Style>
-            <Style TargetType="TextBlock" x:Key="ProfitValue">
-            </Style>
             <Style TargetType="TextBlock" x:Key="Header">
+                <Setter Property="FontSize" Value="16"/>
             </Style>
             <Style TargetType="TextBlock" x:Key="Value">
+                <Setter Property="FontSize" Value="16"/>
             </Style>
         </Grid.Resources>
 
-        <TextBlock Grid.Row="0" Grid.Column="0"
-                   Style="{StaticResource ProfitHeader}" Text="순이익"/>
-        <TextBlock Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" 
-                   Style="{StaticResource ProfitValue}" Text="{Binding Result.Profit}"/>
-        
-        <TextBlock Grid.Row="1" Grid.Column="0" Style="{StaticResource Header}" Text="총 지출"/>
-        <TextBlock Grid.Row="1" Grid.Column="1" Style="{StaticResource Value}" Text="{Binding Result.Expenditure}"/>
-        <TextBlock Grid.Row="1" Grid.Column="2" Style="{StaticResource Header}" Text="총 수익"/>
-        <TextBlock Grid.Row="1" Grid.Column="3" Style="{StaticResource Value}" Text="{Binding Result.Income}"/>
+        <TextBlock Grid.Column="0" Style="{StaticResource Header}" Text="순 수익"/>
+        <TextBlock Grid.Column="1" Style="{StaticResource Value}" Text="{Binding Result.Profit}"/>
+        <TextBlock Grid.Column="2" Style="{StaticResource Header}" Text="지출"/>
+        <TextBlock Grid.Column="3" Style="{StaticResource Value}" Text="{Binding Result.Expenditure}"/>
+        <TextBlock Grid.Column="4" Style="{StaticResource Header}" Text="수익"/>
+        <TextBlock Grid.Column="5" Style="{StaticResource Value}" Text="{Binding Result.Income}"/>
     </Grid>
 </UserControl>

@@ -77,6 +77,10 @@
       <DependentUpon>GageView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Chart\GageViewModel.cs" />
+    <Compile Include="View\Chart\GraphView.xaml.cs">
+      <DependentUpon>GraphView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Chart\GraphViewModel.cs" />
     <Compile Include="View\Chart\SummaryView.xaml.cs">
       <DependentUpon>SummaryView.xaml</DependentUpon>
     </Compile>
@@ -142,6 +146,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="View\Chart\GageView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Chart\GraphView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

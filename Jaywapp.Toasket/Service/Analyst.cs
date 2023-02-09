@@ -32,10 +32,12 @@ namespace Jaywapp.Toasket.Service
             return new AnalysisResult(income, expenditure, AnalysisMonthly(filtered));
         }
 
-        private IEnumerable<AnalysisMonthlyResult> AnalysisMonthly(IEnumerable<Box> boxes)
+        private Dictionary<DateTime, AnalysisMonthlyResult> AnalysisMonthly(IEnumerable<Box> boxes)
         {
+            var result = new Dictionary<DateTime, AnalysisMonthlyResult>();
+
             var groups = boxes
-                .GroupBy(b => b.Created.Month)
+                .GroupBy(b => b.Created.ToString("yyyy/MM"))
                 .OrderBy(g=> g.Key)
                 .ToList();
 
@@ -48,8 +50,12 @@ namespace Jaywapp.Toasket.Service
                 // 수익
                 var income = hitted.Sum(i => i.Income);
 
-                yield return new AnalysisMonthlyResult(income, expenditure);
+                result.Add(
+                    DateTime.Parse(group.Key), 
+                    new AnalysisMonthlyResult(income, expenditure));
             }
+
+            return result;
         }
 
         public AnalysisResult Analysis()

@@ -36,6 +36,7 @@ namespace Jaywapp.Toasket.View.Tab
         public GageViewModel GageViewModel { get; } = new GageViewModel();
         public DateTimeRangeViewModel DateTimeRangeViewModel { get; } = new DateTimeRangeViewModel();
         public SummaryViewModel SummaryViewModel { get; } = new SummaryViewModel();
+        public GraphViewModel GraphViewModel { get; } = new GraphViewModel();
         #endregion
 
         #region Internal Field
@@ -58,6 +59,9 @@ namespace Jaywapp.Toasket.View.Tab
 
             this.WhenAnyValue(x => x.AnalysisResult)
                 .BindTo(this, x => x.SummaryViewModel.Result);
+
+            this.WhenAnyValue(x => x.AnalysisResult)
+                .BindTo(this, x => x.GraphViewModel.Result);
         }
         #endregion
 
