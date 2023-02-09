@@ -7,12 +7,14 @@ using System.Xml.Linq;
 
 namespace Jaywapp.Toasket.Model
 {
-    public class Box : IXmlFileSerializable
+    public class Box : IXmlFileSerializable, IAccount
     {
         #region Properties
         public DateTime Created { get; set; }
         public List<Match> Picks { get; set; } = new List<Match>();
-        public int Money { get; set; }
+        public int Expenditure { get; set; } = 0;
+        public int Income => GetIncome();
+        public int Profit => GetProfit();
         #endregion
 
         #region Constructor
@@ -20,7 +22,7 @@ namespace Jaywapp.Toasket.Model
         {
             Created = DateTime.Now;
             Picks = picks.ToList();
-            Money = money;
+            Expenditure = money;
         }
 
         public Box() : this(Enumerable.Empty<Match>(), 0)
@@ -31,7 +33,15 @@ namespace Jaywapp.Toasket.Model
         #region Functions
         public double GetRatio() => Calculater.Multiply(Picks, p => p.GetRatio());
 
-        public int GetReturnMoney() => (int)(GetRatio() * Money);
+        private int GetIncome() => (int)(GetRatio() * Expenditure);
+
+        private int GetProfit() => Income - Expenditure;
+
+        public bool IsHitted()
+        {
+            return Picks != null && Picks.Any() 
+                && Picks.All(p => p.IsHitted());
+        }
 
         public XElement Serialize()
         {
@@ -39,7 +49,7 @@ namespace Jaywapp.Toasket.Model
 
             element.Add(
                 new XAttribute(nameof(Created), Created),
-                new XAttribute(nameof(Money), Money));
+                new XAttribute(nameof(Expenditure), Expenditure));
 
             foreach (var pick in Picks)
                 element.Add(pick.Serialize());
@@ -54,8 +64,8 @@ namespace Jaywapp.Toasket.Model
 
             if (element.TryGetAttributeDateTime(nameof(Created), out DateTime created))
                 Created = created;
-            if (element.TryGetAttributeInteger(nameof(Money), out int money))
-                Money = money;
+            if (element.TryGetAttributeInteger(nameof(Expenditure), out int money))
+                Expenditure = money;
 
             var picks = element
                 .Elements(nameof(Match))
@@ -64,16 +74,6 @@ namespace Jaywapp.Toasket.Model
 
             Picks = picks;
         }
-
-        public int GetProhit()
-        {
-            if (!IsHitted())
-                return 0;
-
-            return GetReturnMoney() - Money;
-        }
-
-        public bool IsHitted() => Picks.All(p => p.IsHitted());
         #endregion
     }
 }

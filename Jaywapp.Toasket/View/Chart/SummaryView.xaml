@@ -1,0 +1,41 @@
+﻿<UserControl x:Class="Jaywapp.Toasket.View.Chart.SummaryView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Grid.Resources>
+            <Style TargetType="TextBlock" x:Key="ProfitHeader">
+            </Style>
+            <Style TargetType="TextBlock" x:Key="ProfitValue">
+            </Style>
+            <Style TargetType="TextBlock" x:Key="Header">
+            </Style>
+            <Style TargetType="TextBlock" x:Key="Value">
+            </Style>
+        </Grid.Resources>
+
+        <TextBlock Grid.Row="0" Grid.Column="0"
+                   Style="{StaticResource ProfitHeader}" Text="순이익"/>
+        <TextBlock Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" 
+                   Style="{StaticResource ProfitValue}" Text="{Binding Result.Profit}"/>
+        
+        <TextBlock Grid.Row="1" Grid.Column="0" Style="{StaticResource Header}" Text="총 지출"/>
+        <TextBlock Grid.Row="1" Grid.Column="1" Style="{StaticResource Value}" Text="{Binding Result.Expenditure}"/>
+        <TextBlock Grid.Row="1" Grid.Column="2" Style="{StaticResource Header}" Text="총 수익"/>
+        <TextBlock Grid.Row="1" Grid.Column="3" Style="{StaticResource Value}" Text="{Binding Result.Income}"/>
+    </Grid>
+</UserControl>

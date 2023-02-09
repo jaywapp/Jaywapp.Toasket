@@ -58,13 +58,17 @@
     <Compile Include="Enums.cs" />
     <Compile Include="Helper\Calculater.cs" />
     <Compile Include="Helper\EnumerableHelper.cs" />
+    <Compile Include="Interface\IAccount.cs" />
     <Compile Include="Interface\IXmlFileSerializable.cs" />
     <Compile Include="Items\BoxItem.cs" />
+    <Compile Include="Items\DateTimeRange.cs" />
     <Compile Include="Items\MatchItem.cs" />
+    <Compile Include="Model\AnalysisResult.cs" />
     <Compile Include="Model\Box.cs" />
     <Compile Include="Model\Match.cs" />
     <Compile Include="Repository\MatchRepository.cs" />
     <Compile Include="Repository\PersonalRepository.cs" />
+    <Compile Include="Service\Analyst.cs" />
     <Compile Include="Service\ContentConverter.cs" />
     <Compile Include="Service\Crawler.cs" />
     <Compile Include="ShellViewModel.cs" />
@@ -72,6 +76,14 @@
       <DependentUpon>GageView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Chart\GageViewModel.cs" />
+    <Compile Include="View\Chart\SummaryView.xaml.cs">
+      <DependentUpon>SummaryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Chart\SummaryViewModel.cs" />
+    <Compile Include="View\DateTimeRangeView.xaml.cs">
+      <DependentUpon>DateTimeRangeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\DateTimeRangeViewModel.cs" />
     <Compile Include="View\Item\BoxItemView.xaml.cs">
       <DependentUpon>BoxItemView.xaml</DependentUpon>
     </Compile>
@@ -129,6 +141,14 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="View\Chart\GageView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Chart\SummaryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\DateTimeRangeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

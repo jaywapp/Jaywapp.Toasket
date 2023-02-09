@@ -1,14 +1,12 @@
-﻿using Jaywapp.Toasket.Model;
+﻿using Jaywapp.Toasket.Items;
+using Jaywapp.Toasket.Model;
 using Jaywapp.Toasket.Repository;
+using Jaywapp.Toasket.Service;
 using Jaywapp.Toasket.View.Base;
 using Jaywapp.Toasket.View.Chart;
-using LiveCharts;
-using LiveCharts.Wpf;
 using Microsoft.Practices.Unity;
 using ReactiveUI;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reactive.Linq;
 
 namespace Jaywapp.Toasket.View.Tab
@@ -16,26 +14,28 @@ namespace Jaywapp.Toasket.View.Tab
     public class AnalysisViewModel : ContainableReactiveObject
     {
         #region Internal Field
-        private SeriesCollection _seriesCollection = new SeriesCollection();
-        private string[] _months = new string[] { };
+        private Analyst _analyst = null;
+        private AnalysisResult _analysisResult = null;
         #endregion
 
         #region Properties
-        public SeriesCollection SeriesCollection
+        public Analyst Analyst
         {
-            get => _seriesCollection;
-            set => this.RaiseAndSetIfChanged(ref _seriesCollection, value);
+            get => _analyst;
+            set => this.RaiseAndSetIfChanged(ref _analyst, value);
         }
 
-        public string[] Months
+        public AnalysisResult AnalysisResult
         {
-            get => _months;
-            set => this.RaiseAndSetIfChanged(ref _months, value);
+            get => _analysisResult;
+            set => this.RaiseAndSetIfChanged(ref _analysisResult, value);
         }
         #endregion
 
         #region ViewModels
         public GageViewModel GageViewModel { get; } = new GageViewModel();
+        public DateTimeRangeViewModel DateTimeRangeViewModel { get; } = new DateTimeRangeViewModel();
+        public SummaryViewModel SummaryViewModel { get; } = new SummaryViewModel();
         #endregion
 
         #region Internal Field
@@ -44,42 +44,30 @@ namespace Jaywapp.Toasket.View.Tab
         {
             _personalRepo.Updated += OnUpdate;
             _personalRepo.Refresh();
+
+            DateTimeRangeViewModel
+                .WhenAnyValue(x => x.Start, x => x.End)
+                .Where(p => Analyst != null)
+                .Select(p => Analyst.Analysis(p.Item1, p.Item2))
+                .Subscribe(r => AnalysisResult = r);
+
+            this.WhenAnyValue(x=> x.Analyst)
+                .Where(a => a != null)
+                .Select(a => a.Analysis(DateTimeRangeViewModel.Start, DateTimeRangeViewModel.End))
+                .Subscribe(r => AnalysisResult = r);
+
+            this.WhenAnyValue(x => x.AnalysisResult)
+                .BindTo(this, x => x.SummaryViewModel.Result);
         }
         #endregion
 
         #region Functions
-        private static Dictionary<int, int> CreateMonthlyDic(IEnumerable<Box> boxes)
-        {
-            return boxes
-                .GroupBy(b => b.Created.Month)
-                .OrderBy(m => m.Key)
-                .ToDictionary(g => g.Key, g => g.Sum(i => i.GetProhit()));
-        }
-
-        private static SeriesCollection CreateSeriesCollection(Dictionary<int, int> dic)
-        {
-            var prohitSeries = new ColumnSeries
-            {
-                Title = "수익",
-                Values = new ChartValues<int>(dic.Values),
-            };
-
-            var collection = new SeriesCollection(prohitSeries);
-
-            return collection;
-        }
-
-        private static string[] CreateMonths(Dictionary<int, int> dic)
-        {
-            return dic.Keys.Select(key => key.ToString()).ToArray();
-        }
-
         private void OnUpdate(object sender, EventArgs e)
         {
             if (!(sender is PersonalRepository personal))
                 return;
 
-            GageViewModel.Update(personal.Boxes);
+            Analyst = new Analyst(personal.Boxes);
         }
         #endregion
     }
