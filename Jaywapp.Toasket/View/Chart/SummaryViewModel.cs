@@ -5,9 +5,9 @@ namespace Jaywapp.Toasket.View.Chart
 {
     public class SummaryViewModel : ReactiveObject
     {
-        private AnalysisResult _result;
+        private AnalysisResultGroup _result;
 
-        public AnalysisResult Result
+        public AnalysisResultGroup Result
         {
             get => _result;
             set => this.RaiseAndSetIfChanged(ref _result, value);

@@ -56,15 +56,15 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Enums.cs" />
-    <Compile Include="Helper\Calculater.cs" />
+    <Compile Include="Helper\Calculator.cs" />
     <Compile Include="Helper\EnumerableHelper.cs" />
     <Compile Include="Interface\IAccount.cs" />
     <Compile Include="Interface\IXmlFileSerializable.cs" />
     <Compile Include="Items\BoxItem.cs" />
     <Compile Include="Items\DateTimeRange.cs" />
     <Compile Include="Items\MatchItem.cs" />
-    <Compile Include="Model\AnalysisMonthlyResult.cs" />
     <Compile Include="Model\AnalysisResult.cs" />
+    <Compile Include="Model\AnalysisResultGroup.cs" />
     <Compile Include="Model\Box.cs" />
     <Compile Include="Model\Match.cs" />
     <Compile Include="Repository\MatchRepository.cs" />

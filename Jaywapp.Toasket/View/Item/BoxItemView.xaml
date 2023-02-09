@@ -29,7 +29,7 @@
         <TextBlock Grid.Row="3" Grid.Column="0" Text="적중금"/>
 
         <TextBlock Grid.Row="1" Grid.Column="1" Margin="5, 0, 0, 0" Text="{Binding Ratio}"/>
-        <TextBlock Grid.Row="2" Grid.Column="1" Margin="5, 0, 0, 0" Text="{Binding Money}"/>
-        <TextBlock Grid.Row="3" Grid.Column="1" Margin="5, 0, 0, 0" Text="{Binding ReturnMoney}"/>
+        <TextBlock Grid.Row="2" Grid.Column="1" Margin="5, 0, 0, 0" Text="{Binding Income}"/>
+        <TextBlock Grid.Row="3" Grid.Column="1" Margin="5, 0, 0, 0" Text="{Binding Expenditure}"/>
     </Grid>
 </UserControl>

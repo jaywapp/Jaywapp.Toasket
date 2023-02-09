@@ -12,13 +12,13 @@ namespace Jaywapp.Toasket.View.Chart
 {
     public class GraphViewModel : ReactiveObject
     {
-        private AnalysisResult _result;
+        private AnalysisResultGroup _result;
 
         private ObservableAsPropertyHelper<SeriesCollection> _seriesCollection;
         private ObservableAsPropertyHelper<ObservableCollection<string>> _months;
 
 
-        public AnalysisResult Result
+        public AnalysisResultGroup Result
         {
             get => _result;
             set => this.RaiseAndSetIfChanged(ref _result, value);
@@ -42,23 +42,23 @@ namespace Jaywapp.Toasket.View.Chart
                 .ToProperty(this, x => x.Months, out _months);
         }
 
-        private ObservableCollection<string> CreateMonths(AnalysisResult result)
+        private ObservableCollection<string> CreateMonths(AnalysisResultGroup result)
         {
             var collection = new ObservableCollection<string>();
 
             collection.AddRange(
-                result.Monthlys.Select(m => m.Key.ToString("yyyy - MM")));
+                result.Children.Select(m => m.Key.ToString("yyyy - MM")));
 
             return collection;
         }
 
-        private SeriesCollection CreateSeriesCollection(AnalysisResult result)
+        private SeriesCollection CreateSeriesCollection(AnalysisResultGroup result)
         {
             var collection = new SeriesCollection();
 
-            var incomes = result.Monthlys.Values.Select(m => m.Income).AsChartValues();
-            var expenditures = result.Monthlys.Values.Select(m => m.Expenditure).AsChartValues();
-            var profits = result.Monthlys.Values.Select(m => m.Profit).AsChartValues();
+            var incomes = result.Children.Values.Select(m => m.Income).AsChartValues();
+            var expenditures = result.Children.Values.Select(m => m.Expenditure).AsChartValues();
+            var profits = result.Children.Values.Select(m => m.Profit).AsChartValues();
 
             collection.Add(new ColumnSeries
             {

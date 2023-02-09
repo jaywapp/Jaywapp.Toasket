@@ -15,7 +15,7 @@ namespace Jaywapp.Toasket.View.Tab
     {
         #region Internal Field
         private Analyst _analyst = null;
-        private AnalysisResult _analysisResult = null;
+        private AnalysisResultGroup _analysisResult = null;
         #endregion
 
         #region Properties
@@ -25,7 +25,7 @@ namespace Jaywapp.Toasket.View.Tab
             set => this.RaiseAndSetIfChanged(ref _analyst, value);
         }
 
-        public AnalysisResult AnalysisResult
+        public AnalysisResultGroup AnalysisResult
         {
             get => _analysisResult;
             set => this.RaiseAndSetIfChanged(ref _analysisResult, value);

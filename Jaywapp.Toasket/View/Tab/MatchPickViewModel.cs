@@ -63,7 +63,7 @@ namespace Jaywapp.Toasket.View.Tab
 
             this.WhenAnyValue(x => x.SelectedItems)
                 .Where(items => items != null)
-                .Select(items => Calculater.Multiply(items, i => i.Match.GetRatio()))
+                .Select(items => Calculator.Multiply(items, i => i.Match.GetRatio()))
                 .BindTo(this, x => x.StatusViewModel.Ratio);
 
             this.WhenAnyValue(x => x.SelectedItems, x => x.StatusViewModel.Money)

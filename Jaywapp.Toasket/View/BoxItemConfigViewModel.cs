@@ -69,7 +69,7 @@ namespace Jaywapp.Toasket.View
                 .Select(i => i.Children)
                 .BindTo(this, x => x.MatchItemListViewModel.Items);
 
-            item.WhenAnyValue(i => i.Money)
+            item.WhenAnyValue(i => i.Expenditure)
                 .BindTo(this, x => x.StatusViewModel.Money);
             item.WhenAnyValue(i => i.Children)
                 .Select(c => c.Count)
@@ -78,9 +78,9 @@ namespace Jaywapp.Toasket.View
                 .BindTo(this, x => x.StatusViewModel.Ratio);
 
             StatusViewModel.WhenAnyValue(x => x.Money)
-                .BindTo(this, x => x.Item.Money);
+                .BindTo(this, x => x.Item.Expenditure);
 
-            item.WhenAnyValue(i => i.Money, i => i.Ratio)
+            item.WhenAnyValue(i => i.Expenditure, i => i.Ratio)
                 .Subscribe(o => ContentChagned?.Invoke(this, EventArgs.Empty));
         }
         #endregion

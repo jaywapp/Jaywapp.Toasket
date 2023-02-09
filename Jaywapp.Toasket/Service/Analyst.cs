@@ -19,7 +19,7 @@ namespace Jaywapp.Toasket.Service
         #endregion
 
         #region Functions
-        public AnalysisResult Analysis(DateTime start, DateTime end)
+        public AnalysisResultGroup Analysis(DateTime start, DateTime end)
         {
             var filtered = Filtering(_boxes, start, end).ToList();
             var hitted = filtered.Where(i => i.IsHitted()).ToList();
@@ -29,12 +29,12 @@ namespace Jaywapp.Toasket.Service
             // 총 수익
             var income = hitted.Sum(i => i.Income);
 
-            return new AnalysisResult(income, expenditure, AnalysisMonthly(filtered));
+            return new AnalysisResultGroup(income, expenditure, AnalysisMonthly(filtered));
         }
 
-        private Dictionary<DateTime, AnalysisMonthlyResult> AnalysisMonthly(IEnumerable<Box> boxes)
+        private Dictionary<DateTime, AnalysisResult> AnalysisMonthly(IEnumerable<Box> boxes)
         {
-            var result = new Dictionary<DateTime, AnalysisMonthlyResult>();
+            var result = new Dictionary<DateTime, AnalysisResult>();
 
             var groups = boxes
                 .GroupBy(b => b.Created.ToString("yyyy/MM"))
@@ -52,13 +52,13 @@ namespace Jaywapp.Toasket.Service
 
                 result.Add(
                     DateTime.Parse(group.Key), 
-                    new AnalysisMonthlyResult(income, expenditure));
+                    new AnalysisResult(income, expenditure));
             }
 
             return result;
         }
 
-        public AnalysisResult Analysis()
+        public AnalysisResultGroup Analysis()
         {
             var start = _boxes.Min(b => b.Created);
             var end = _boxes.Max(b => b.Created);

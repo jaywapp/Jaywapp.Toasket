@@ -1,6 +1,7 @@
 ﻿using DynamicData;
 using DynamicData.Binding;
 using Jaywapp.Toasket.Helper;
+using Jaywapp.Toasket.Interface;
 using Jaywapp.Toasket.Model;
 using ReactiveUI;
 using System;
@@ -10,42 +11,61 @@ using System.Reactive.Linq;
 
 namespace Jaywapp.Toasket.Items
 {
-    public class BoxItem : ReactiveObject
+    public class BoxItem : ReactiveObject, IAccount
     {
         #region Internal Field
-        private int _money = 0;
+        private int _expenditure = 0;
+        private ObservableAsPropertyHelper<int> _income;
         private ObservableAsPropertyHelper<double> _ratio;
-        private ObservableAsPropertyHelper<int> _returnMoney;
         #endregion
 
         #region Properties
+        /// <summary>
+        /// 원본 모델
+        /// </summary>
         public Box Box { get; }
 
-        public int Money
+        /// <inheritdoc/>
+        public int Expenditure
         {
-            get => _money;
-            set => this.RaiseAndSetIfChanged(ref _money, value);
+            get => _expenditure;
+            set => this.RaiseAndSetIfChanged(ref _expenditure, value);
         }
 
-        public double Ratio => _ratio.Value;
-        
-        public int ReturnMoney => _returnMoney.Value;
+        /// <inheritdoc/>
+        public int Income => _income.Value;
 
+        /// <inheritdoc/>
+        public int Profit => Income - Expenditure;
+
+        /// <summary>
+        /// 배당
+        /// </summary>
+        public double Ratio => _ratio.Value;
+
+        /// <summary>
+        /// 하위 매치 목록
+        /// </summary>
         public ObservableCollection<MatchItem> Children { get; }
         #endregion
 
         #region Constructor
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="box"></param>
         public BoxItem(Box box)
         {
             Box = box;
-            Money = box.Expenditure;
+            Expenditure = box.Expenditure;
             Children = box.Picks
                 .Select(p => new MatchItem(p))
                 .ToObservableCollection();
 
-            this.WhenAnyValue(x => x.Money)
+            this.WhenAnyValue(x => x.Expenditure)
                 .BindTo(this, x => x.Box.Expenditure);
-            this.WhenAnyValue(x => x.Money)
+
+            this.WhenAnyValue(x => x.Expenditure)
                  .Select(p => Box.GetRatio())
                  .ToProperty(this, x => x.Ratio, out _ratio);
 
@@ -55,9 +75,9 @@ namespace Jaywapp.Toasket.Items
                 .Select(p => Box.GetRatio())
                 .ToProperty(this, x => x.Ratio, out _ratio);
 
-            this.WhenAnyValue(x => x.Money, x => x.Ratio)
+            this.WhenAnyValue(x => x.Expenditure, x => x.Ratio)
                 .Select(p => Box.Income)
-                .ToProperty(this, x => x.ReturnMoney, out _returnMoney);
+                .ToProperty(this, x => x.Income, out _income);
         }
         #endregion
     }
