@@ -38,13 +38,13 @@ namespace Jaywapp.Toasket.Items
         public BoxItem(Box box)
         {
             Box = box;
-            Money = box.Money;
+            Money = box.Expenditure;
             Children = box.Picks
                 .Select(p => new MatchItem(p))
                 .ToObservableCollection();
 
             this.WhenAnyValue(x => x.Money)
-                .BindTo(this, x => x.Box.Money);
+                .BindTo(this, x => x.Box.Expenditure);
             this.WhenAnyValue(x => x.Money)
                  .Select(p => Box.GetRatio())
                  .ToProperty(this, x => x.Ratio, out _ratio);
@@ -56,7 +56,7 @@ namespace Jaywapp.Toasket.Items
                 .ToProperty(this, x => x.Ratio, out _ratio);
 
             this.WhenAnyValue(x => x.Money, x => x.Ratio)
-                .Select(p => Box.GetReturnMoney())
+                .Select(p => Box.Income)
                 .ToProperty(this, x => x.ReturnMoney, out _returnMoney);
         }
         #endregion

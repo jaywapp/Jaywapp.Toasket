@@ -116,6 +116,14 @@ namespace Jaywapp.Toasket.Model
             if (element.TryGetAttributeEnum(nameof(Result), out eMatchResult result))
                 Result = result;
         }
+
+        public bool IsHitted()
+        {
+            if (Pick == eMatchResult.None || Result == eMatchResult.None)
+                return false;
+
+            return Pick == Result;
+        }
         #endregion
     }
 }

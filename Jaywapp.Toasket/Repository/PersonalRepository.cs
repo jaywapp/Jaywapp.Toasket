@@ -79,7 +79,10 @@ namespace Jaywapp.Toasket.Repository
         public void Load(string path)
         {
             if (File.Exists(path))
+            {
                 Serialize(XDocument.Load(path).Root);
+                InvokeEvent();
+            }
         }
 
         public void Save(string path)
