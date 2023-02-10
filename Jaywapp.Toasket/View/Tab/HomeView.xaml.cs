@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using System.Diagnostics;
+using System.Windows.Controls;
 
 namespace Jaywapp.Toasket.View.Tab
 {
@@ -10,6 +11,12 @@ namespace Jaywapp.Toasket.View.Tab
         public HomeView()
         {
             InitializeComponent();
+        }
+
+        private void HyperlinkRequestNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
+        {
+            Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri));
+            e.Handled = true;
         }
     }
 }
