@@ -81,9 +81,6 @@ jobs:
       env:
         Configuration: ${{ matrix.configuration }}
 
-    - name: @callebstrom/inno-setup-cli
-      uses: callebstrom/inno-setup-cli-action@6.2.1
-
     - name: run inno setup
       run: |
         "%programfiles(x86)%\Inno Setup 6\iscc.exe" "Setup.iss"
