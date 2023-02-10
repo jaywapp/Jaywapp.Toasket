@@ -70,7 +70,6 @@
     <Compile Include="Repository\MatchRepository.cs" />
     <Compile Include="Repository\PersonalRepository.cs" />
     <Compile Include="Service\Analyst.cs" />
-    <Compile Include="Service\ContentConverter.cs" />
     <Compile Include="Service\Crawler.cs" />
     <Compile Include="ShellViewModel.cs" />
     <Compile Include="View\Chart\GageView.xaml.cs">
