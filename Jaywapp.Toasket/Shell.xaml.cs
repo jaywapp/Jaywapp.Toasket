@@ -11,6 +11,7 @@ namespace Jaywapp.Toasket
         {
             DataContext = viewModel;
             InitializeComponent();
+            banner.ShowAd(728, 90, "jr8i1uatm9rl");
         }
     }
 }
