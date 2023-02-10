@@ -9,12 +9,12 @@ jobs:
     runs-on: windows-latest
 
    steps:
-- uses: actions/checkout@v3
-- uses: actions/setup-dotnet@v3
-  with:
-    dotnet-version: '4.7.x'
-- run: dotnet build Jaywapp.Toasket
-- name: Publish the package to nuget.org
-  run: dotnet nuget push */bin/Release/*.nupkg -k $NUGET_AUTH_TOKEN -s https://api.nuget.org/v3/index.json
-  env:
-    NUGET_AUTH_TOKEN: ${{ secrets.NUGET_TOKEN }}
+    - uses: actions/checkout@v3
+    - uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '4.7.x'
+    - run: dotnet build Jaywapp.Toasket
+    - name: Publish the package to nuget.org
+      run: dotnet nuget push */bin/Release/*.nupkg -k $NUGET_AUTH_TOKEN -s https://api.nuget.org/v3/index.json
+      env:
+        NUGET_AUTH_TOKEN: ${{ secrets.NUGET_TOKEN }}
