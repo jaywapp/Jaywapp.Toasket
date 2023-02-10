@@ -8,7 +8,7 @@
 #define MyAppURL "https://github.com/jaywapp"
 
 #define MyAppName "Toasket"
-#define MyAppExeName "Toasket.exe"
+#define MyAppExeName "Jaywapp.Toasket.exe"
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application. Do not use the same AppId value in installers for other applications.
