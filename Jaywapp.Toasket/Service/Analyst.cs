@@ -12,6 +12,10 @@ namespace Jaywapp.Toasket.Service
         #endregion
 
         #region Constructor
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="boxes"></param>
         public Analyst(IEnumerable<Box> boxes)
         {
             _boxes = boxes.ToList();
@@ -19,6 +23,12 @@ namespace Jaywapp.Toasket.Service
         #endregion
 
         #region Functions
+        /// <summary>
+        /// <paramref name="start"/>부터 <paramref name="end"/>까지의 결과를 분석합니다.
+        /// </summary>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
+        /// <returns></returns>
         public AnalysisResultGroup Analysis(DateTime start, DateTime end)
         {
             var filtered = Filtering(_boxes, start, end).ToList();
@@ -29,10 +39,15 @@ namespace Jaywapp.Toasket.Service
             // 총 수익
             var income = hitted.Sum(i => i.Income);
 
-            return new AnalysisResultGroup(income, expenditure, AnalysisMonthly(filtered));
+            return new AnalysisResultGroup(income, expenditure, AnalysisChild(filtered));
         }
 
-        private Dictionary<DateTime, AnalysisResult> AnalysisMonthly(IEnumerable<Box> boxes)
+        /// <summary>
+        /// 월별 결과를 분석합니다.
+        /// </summary>
+        /// <param name="boxes"></param>
+        /// <returns></returns>
+        private Dictionary<DateTime, AnalysisResult> AnalysisChild(IEnumerable<Box> boxes)
         {
             var result = new Dictionary<DateTime, AnalysisResult>();
 
@@ -58,6 +73,10 @@ namespace Jaywapp.Toasket.Service
             return result;
         }
 
+        /// <summary>
+        /// 전체 기간에 대해 분석합니다.
+        /// </summary>
+        /// <returns></returns>
         public AnalysisResultGroup Analysis()
         {
             var start = _boxes.Min(b => b.Created);
@@ -66,6 +85,13 @@ namespace Jaywapp.Toasket.Service
             return Analysis(start, end);
         }
 
+        /// <summary>
+        /// <paramref name="boxes"/>에서 <paramref name="start"/>, <paramref name="end"/>내의 항목을 추출합니다.
+        /// </summary>
+        /// <param name="boxes"></param>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
+        /// <returns></returns>
         private static IEnumerable<Box> Filtering(IEnumerable<Box> boxes, DateTime start, DateTime end)
         {
             foreach(var box in boxes.ToList())

@@ -61,7 +61,7 @@ namespace Jaywapp.Toasket.Service
         private static Match CreateMatch(List<string> contentSet)
         {
             if (!int.TryParse(contentSet[0], out int no)
-                || !ContentConverter.TryConvertDateTime(contentSet[1], DateTime.Now.Year, out DateTime date))
+                || !TryConvertDateTime(contentSet[1], DateTime.Now.Year, out DateTime date))
                 return null;
 
             var category = contentSet[2];
@@ -78,7 +78,7 @@ namespace Jaywapp.Toasket.Service
         private static Match CreateHandicapMatch(List<string> contentSet)
         {
             if (!int.TryParse(contentSet[0], out int no)
-                  || !ContentConverter.TryConvertDateTime(contentSet[1], DateTime.Now.Year, out DateTime date))
+                  || !TryConvertDateTime(contentSet[1], DateTime.Now.Year, out DateTime date))
                 return null;
 
             var category = contentSet[2];
@@ -96,7 +96,7 @@ namespace Jaywapp.Toasket.Service
         private static Match CreateUnderOverMatch(List<string> contentSet)
         {
             if (!int.TryParse(contentSet[0], out int no)
-                    || !ContentConverter.TryConvertDateTime(contentSet[1], DateTime.Now.Year, out DateTime date))
+                    || !TryConvertDateTime(contentSet[1], DateTime.Now.Year, out DateTime date))
                 return null;
 
             var category = contentSet[2];
@@ -176,7 +176,7 @@ namespace Jaywapp.Toasket.Service
 
             foreach (var str in splited)
             {
-                if (ContentConverter.TryConvertDateTime(str, DateTime.Now.Year, out DateTime date))
+                if (TryConvertDateTime(str, DateTime.Now.Year, out DateTime date))
                     indexes.Add(pivot);
 
                 pivot++;
@@ -199,6 +199,23 @@ namespace Jaywapp.Toasket.Service
 
                 contentSet.Add(splited[i]);
             }
+        }
+
+        private static bool TryConvertDateTime(string content, int year, out DateTime date)
+        {
+            date = default;
+
+            var splited = content.Split(new char[] { '.', ' ', '(', ')', ':', }, StringSplitOptions.RemoveEmptyEntries);
+
+            if (splited.Count() != 5
+                || !int.TryParse(splited[0], out int month)
+                || !int.TryParse(splited[1], out int day)
+                || !int.TryParse(splited[3], out int hour)
+                || !int.TryParse(splited[4], out int minute))
+                return false;
+
+            date = new DateTime(year, month, day, hour, minute, 0);
+            return true;
         }
         #endregion
     }
