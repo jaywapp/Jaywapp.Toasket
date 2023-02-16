@@ -14,10 +14,6 @@
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0"  HorizontalAlignment="Center"  FontWeight="Bold" FontSize="40" Text="Toasket"/>
         <TextBlock Grid.Row="1" HorizontalAlignment="Center" FontSize="20" Text="For Toto, Proto Gamer"/>
-        <TextBlock Grid.Row="2" Margin="0, 5, 0, 0" HorizontalAlignment="Center"  FontSize="15">
-            <Hyperlink NavigateUri="https://github.com/jaywapp/Jaywapp.Toasket" RequestNavigate="HyperlinkRequestNavigate">
-                By Jaywapp
-            </Hyperlink>
-        </TextBlock>
+        <TextBlock Grid.Row="2" Margin="0, 5, 0, 0" HorizontalAlignment="Center"  FontSize="15" Text="By Jaywapp"/>
     </Grid>
 </UserControl>
