@@ -255,6 +255,3 @@ paket-files/
 !7z.dll
 
 SetupFile/
-
-# Inno Setup Output Directory
-Output/
