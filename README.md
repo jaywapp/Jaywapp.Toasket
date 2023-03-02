@@ -1,6 +1,6 @@
 
 # Toasket
-:link: [Download Setup](https://github.com/jaywapp/Jaywapp.Toasket/blob/master/Output/Toasket_setup.exe)
+:link: [Download Setup](https://github.com/jaywapp/Jaywapp.Toasket/raw/master/Output/Toasket_setup.exe)
 
 ![image](https://user-images.githubusercontent.com/20869970/222399214-e6543486-d6fa-49ca-af0b-c6eaf131ada5.png)
 
